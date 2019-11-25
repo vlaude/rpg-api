@@ -12,6 +12,18 @@ type Character {
   vitality: Int!
 }
 
+input CreateCharacterInput {
+  name: String!
+  strength: Int
+  dexterity: Int
+  intelligence: Int
+  vitality: Int
+}
+
+type Mutation {
+  createCharacter(createCharacterData: CreateCharacterInput!): Character!
+}
+
 type Query {
   characters: [Character!]!
 }

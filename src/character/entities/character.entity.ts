@@ -8,23 +8,23 @@ export class Character {
     @Field(type => ID)
     id: string;
 
-    @Column()
+    @Column({ unique: true })
     @Field()
     name: string;
 
-    @Column('int')
+    @Column({ type: 'int', default: 10 })
     @Field(type => Int)
     strength: number;
 
-    @Column('int')
+    @Column({ type: 'int', default: 10 })
     @Field(type => Int)
     dexterity: number;
 
-    @Column('int')
+    @Column({ type: 'int', default: 10 })
     @Field(type => Int)
     intelligence: number;
 
-    @Column('int')
+    @Column({ type: 'int', default: 100 })
     @Field(type => Int)
     vitality: number;
 }
