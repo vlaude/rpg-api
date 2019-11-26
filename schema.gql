@@ -20,6 +20,13 @@ input CreateCharacterInput {
   vitality: Int
 }
 
+enum DamageType {
+  MELEE_PHYSICAL
+  MELEE_MAGIC
+  DISTANCE_PHYSICAL
+  DISTANCE_MAGIC
+}
+
 type Mutation {
   createCharacter(createCharacterData: CreateCharacterInput!): Character!
   updateCharacter(updateCharacterData: UpdateCharacterInput!): Character!
@@ -27,9 +34,42 @@ type Mutation {
 
 type Query {
   characters: [Character!]!
+  weaponTypes: [WeaponType!]!
 }
 
 input UpdateCharacterInput {
   id: String!
   name: String!
+}
+
+enum WeaponCategory {
+  SWORD
+  AXE
+  MACE
+  BOW
+  WAND
+  STAFF
+}
+
+enum WeaponPosition {
+  TWO_HANDED
+  HAND_RIGHT
+  HAND_LEFT
+}
+
+type WeaponType {
+  id: ID!
+  name: String!
+  category: WeaponCategory!
+  damageType: DamageType!
+  position: WeaponPosition!
+  description: String
+  minBonusStrength: Int!
+  maxBonusStrength: Int!
+  minBonusDexterity: Int!
+  maxBonusDexterity: Int!
+  minBonusIntelligence: Int!
+  maxBonusIntelligence: Int!
+  minBonusVitality: Int!
+  maxBonusVitality: Int!
 }
