@@ -22,8 +22,14 @@ input CreateCharacterInput {
 
 type Mutation {
   createCharacter(createCharacterData: CreateCharacterInput!): Character!
+  updateCharacter(updateCharacterData: UpdateCharacterInput!): Character!
 }
 
 type Query {
   characters: [Character!]!
+}
+
+input UpdateCharacterInput {
+  id: String!
+  name: String!
 }
