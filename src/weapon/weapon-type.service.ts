@@ -11,6 +11,10 @@ export class WeaponTypeService {
         private readonly weaponTypeRepository: Repository<WeaponType>
     ) {}
 
+    async findOneById(id: string): Promise<WeaponType> {
+        return this.weaponTypeRepository.findOne(id);
+    }
+
     async findOneByName(name: string): Promise<WeaponType> {
         return this.weaponTypeRepository.findOne({ where: { name } });
     }

@@ -1,8 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { ObjectType, Field, ID, Int } from 'type-graphql';
 import { WeaponCategory } from './weapon-category.enum';
 import { DamageType } from './damage-type.enum';
 import { WeaponPostion } from './weapon-position.enum';
+import { Weapon } from './weapon.entity';
 
 @Entity()
 @ObjectType()
@@ -70,4 +71,10 @@ export class WeaponType {
     @Column({ type: 'int' })
     @Field(type => Int)
     maxBonusVitality: number;
+
+    @OneToMany(
+        type => Weapon,
+        weapon => weapon.type
+    )
+    instances?: Weapon[];
 }
