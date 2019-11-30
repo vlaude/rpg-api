@@ -1,33 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import { ObjectType, Field, ID, Int, registerEnumType } from 'type-graphql';
-
-enum WeaponCategory {
-    SWORD = 'sword',
-    AXE = 'axe',
-    MACE = 'mace',
-    BOW = 'bow',
-    WAND = 'wand',
-    STAFF = 'staff',
-}
-
-registerEnumType(WeaponCategory, { name: 'WeaponCategory' });
-
-enum DamageType {
-    MELEE_PHYSICAL = 'melee_physical',
-    MELEE_MAGIC = 'melee_magic',
-    DISTANCE_PHYSICAL = 'distance_physical',
-    DISTANCE_MAGIC = 'distance_magic',
-}
-
-registerEnumType(DamageType, { name: 'DamageType' });
-
-enum WeaponPostion {
-    TWO_HANDED = 'two_handed',
-    HAND_RIGHT = 'hand_right',
-    HAND_LEFT = 'hand_left',
-}
-
-registerEnumType(WeaponPostion, { name: 'WeaponPosition' });
+import { ObjectType, Field, ID, Int } from 'type-graphql';
+import { WeaponCategory } from './weapon-category.enum';
+import { DamageType } from './damage-type.enum';
+import { WeaponPostion } from './weapon-position.enum';
 
 @Entity()
 @ObjectType()

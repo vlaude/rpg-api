@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Character } from './entities/character.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCharacterInput } from './dto/create-character.input';
 import { UpdateCharacterInput } from './dto/update-character-input';
+import { Character } from './models/character.entity';
 
 @Injectable()
 export class CharacterService {

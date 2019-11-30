@@ -1,9 +1,9 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UserInputError } from 'apollo-server-errors';
 import { CharacterService } from './character.service';
-import { Character } from './entities/character.entity';
 import { CreateCharacterInput } from './dto/create-character.input';
 import { UpdateCharacterInput } from './dto/update-character-input';
+import { Character } from './models/character.entity';
 
 @Resolver(of => Character)
 export class CharacterResolver {

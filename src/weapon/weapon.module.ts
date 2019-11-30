@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { WeaponTypeResolver } from './weapon-type.resolver';
 import { WeaponTypeService } from './weapon-type.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { WeaponType } from './entities/weapon-type.entity';
+import { WeaponType } from './models/weapon-type.entity';
 
 @Module({
     imports: [TypeOrmModule.forFeature([WeaponType])],
