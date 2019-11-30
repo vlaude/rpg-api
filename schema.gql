@@ -10,6 +10,7 @@ type Character {
   dexterity: Int!
   intelligence: Int!
   vitality: Int!
+  equipment: Equipment!
 }
 
 input CreateCharacterInput {
@@ -49,14 +50,29 @@ enum DamageType {
   DISTANCE_MAGIC
 }
 
+type Equipment {
+  id: ID!
+  character: Character!
+  handRight: Weapon
+  handLeft: Weapon
+  twoHanded: Weapon
+}
+
+input EquipWeaponInput {
+  characterId: String!
+  weaponId: String!
+}
+
 type Mutation {
   createCharacter(createCharacterData: CreateCharacterInput!): Character!
   updateCharacter(updateCharacterData: UpdateCharacterInput!): Character!
+  equipWeapon(equipWeaponData: EquipWeaponInput!): Character!
   createWeaponType(createWeaponTypeData: CreateWeaponTypeInput!): WeaponType!
   createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
 }
 
 type Query {
+  character(id: String!): Character!
   characters: [Character!]!
   weaponTypes: [WeaponType!]!
   weapon(id: String!): Weapon!

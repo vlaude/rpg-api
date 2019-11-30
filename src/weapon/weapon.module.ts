@@ -10,5 +10,6 @@ import { WeaponService } from './weapon/weapon.service';
 @Module({
     imports: [TypeOrmModule.forFeature([Weapon, WeaponType])],
     providers: [WeaponTypeResolver, WeaponTypeService, WeaponResolver, WeaponService],
+    exports: [WeaponService],
 })
 export class WeaponModule {}
