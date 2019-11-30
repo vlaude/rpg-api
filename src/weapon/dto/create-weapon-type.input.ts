@@ -21,6 +21,12 @@ export class CreateWeaponTypeInput {
     description?: string;
 
     @Field(type => Int)
+    minimumDamage: number;
+
+    @Field(type => Int)
+    maximumDamage: number;
+
+    @Field(type => Int)
     minBonusStrength: number;
 
     @Field(type => Int)

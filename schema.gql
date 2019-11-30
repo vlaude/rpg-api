@@ -20,12 +20,18 @@ input CreateCharacterInput {
   vitality: Int
 }
 
+input CreateWeaponInput {
+  weaponTypeId: String!
+}
+
 input CreateWeaponTypeInput {
   name: String!
   category: WeaponCategory!
   damageType: DamageType!
   position: WeaponPosition!
   description: String
+  minimumDamage: Int!
+  maximumDamage: Int!
   minBonusStrength: Int!
   maxBonusStrength: Int!
   minBonusDexterity: Int!
@@ -47,6 +53,7 @@ type Mutation {
   createCharacter(createCharacterData: CreateCharacterInput!): Character!
   updateCharacter(updateCharacterData: UpdateCharacterInput!): Character!
   createWeaponType(createWeaponTypeData: CreateWeaponTypeInput!): WeaponType!
+  createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
 }
 
 type Query {
@@ -57,6 +64,15 @@ type Query {
 input UpdateCharacterInput {
   id: String!
   name: String!
+}
+
+type Weapon {
+  id: ID!
+  type: WeaponType!
+  bonusStrength: Int!
+  bonusDexterity: Int!
+  bonusIntelligence: Int!
+  bonusVitality: Int!
 }
 
 enum WeaponCategory {
@@ -81,6 +97,8 @@ type WeaponType {
   damageType: DamageType!
   position: WeaponPosition!
   description: String
+  minimumDamage: Int!
+  maximumDamage: Int!
   minBonusStrength: Int!
   maxBonusStrength: Int!
   minBonusDexterity: Int!

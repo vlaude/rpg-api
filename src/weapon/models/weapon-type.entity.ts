@@ -33,6 +33,14 @@ export class WeaponType {
 
     @Column({ type: 'int' })
     @Field(type => Int)
+    minimumDamage: number;
+
+    @Column({ type: 'int' })
+    @Field(type => Int)
+    maximumDamage: number;
+
+    @Column({ type: 'int' })
+    @Field(type => Int)
     minBonusStrength: number;
 
     @Column({ type: 'int' })

@@ -21,6 +21,6 @@ export class WeaponTypeResolver {
         if (weaponType) {
             throw new UserInputError('A weapon type with this name already exists');
         }
-        return this.weaponTypeService.create(createWeaponTypeData);
+        return await this.weaponTypeService.create(createWeaponTypeData);
     }
 }
