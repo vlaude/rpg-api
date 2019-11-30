@@ -2,8 +2,8 @@ import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { Weapon } from './models/weapon.entity';
 import { WeaponService } from './weapon.service';
 import { CreateWeaponInput } from './dto/create-weapon.input';
-import { WeaponTypeService } from './weapon-type.service';
 import { UserInputError } from 'apollo-server-errors';
+import { WeaponTypeService } from '../weapon-type/weapon-type.service';
 
 @Resolver(of => Weapon)
 export class WeaponResolver {

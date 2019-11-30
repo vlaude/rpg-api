@@ -1,6 +1,6 @@
-import { WeaponType } from './weapon-type.entity';
 import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from 'typeorm';
 import { ObjectType, Field, ID, Int } from 'type-graphql';
+import { WeaponType } from 'src/weapon/weapon-type/models/weapon-type.entity';
 
 @Entity()
 @ObjectType()

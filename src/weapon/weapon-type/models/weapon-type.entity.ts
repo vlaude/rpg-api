@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { ObjectType, Field, ID, Int } from 'type-graphql';
 import { WeaponCategory } from './weapon-category.enum';
-import { DamageType } from './damage-type.enum';
 import { WeaponPostion } from './weapon-position.enum';
-import { Weapon } from './weapon.entity';
+import { DamageType } from './damage-type.enum';
+import { Weapon } from 'src/weapon/weapon/models/weapon.entity';
 
 @Entity()
 @ObjectType()

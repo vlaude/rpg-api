@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Weapon } from './models/weapon.entity';
 import { Repository } from 'typeorm';
-import { WeaponType } from './models/weapon-type.entity';
 import { generateStat } from 'src/utils/calc';
+import { WeaponType } from '../weapon-type/models/weapon-type.entity';
 
 @Injectable()
 export class WeaponService {
