@@ -59,6 +59,8 @@ type Mutation {
 type Query {
   characters: [Character!]!
   weaponTypes: [WeaponType!]!
+  weapon(id: String!): Weapon!
+  weapons: [Weapon!]!
 }
 
 input UpdateCharacterInput {

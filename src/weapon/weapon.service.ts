@@ -12,6 +12,14 @@ export class WeaponService {
         private readonly weaponRepository: Repository<Weapon>
     ) {}
 
+    async findOneById(id: string): Promise<Weapon> {
+        return this.weaponRepository.findOne(id);
+    }
+
+    async findAll(): Promise<Weapon[]> {
+        return this.weaponRepository.find();
+    }
+
     async create(weaponType: WeaponType): Promise<Weapon> {
         const bonusStrength = generateStat(weaponType.minBonusStrength, weaponType.maxBonusStrength);
         const bonusDexterity = generateStat(weaponType.minBonusDexterity, weaponType.maxBonusDexterity);

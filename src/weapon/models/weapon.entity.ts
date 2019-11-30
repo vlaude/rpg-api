@@ -11,7 +11,8 @@ export class Weapon {
 
     @ManyToOne(
         type => WeaponType,
-        weaponType => weaponType.instances
+        weaponType => weaponType.instances,
+        { eager: true }
     )
     @Field(type => WeaponType)
     type: WeaponType;
