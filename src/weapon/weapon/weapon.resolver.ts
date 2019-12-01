@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, Query, Parent, ResolveProperty } from '@nestjs/graphql';
 import { Weapon } from './models/weapon.entity';
 import { WeaponService } from './weapon.service';
 import { CreateWeaponInput } from './dto/create-weapon.input';
@@ -30,5 +30,30 @@ export class WeaponResolver {
             throw new UserInputError(`No weapon type found for id ${createWeaponData.weaponTypeId}`);
         }
         return this.weaponService.create(weaponType);
+    }
+
+    @ResolveProperty()
+    async name(@Parent() weapon: Weapon) {
+        return weapon.type.name;
+    }
+
+    @ResolveProperty()
+    async description(@Parent() weapon: Weapon) {
+        return weapon.type.description;
+    }
+
+    @ResolveProperty()
+    async category(@Parent() weapon: Weapon) {
+        return weapon.type.category;
+    }
+
+    @ResolveProperty()
+    async damageType(@Parent() weapon: Weapon) {
+        return weapon.type.damageType;
+    }
+
+    @ResolveProperty()
+    async position(@Parent() weapon: Weapon) {
+        return weapon.type.position;
     }
 }

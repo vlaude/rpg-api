@@ -87,6 +87,11 @@ input UpdateCharacterInput {
 type Weapon {
   id: ID!
   type: WeaponType!
+  name: String!
+  category: WeaponCategory!
+  damageType: DamageType!
+  position: WeaponPosition!
+  description: String
   bonusStrength: Int!
   bonusDexterity: Int!
   bonusIntelligence: Int!
