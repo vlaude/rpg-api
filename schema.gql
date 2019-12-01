@@ -3,6 +3,38 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+enum ArmorCategory {
+  LIGTH
+  MEDIUM
+  HEAVY
+}
+
+enum ArmorPosition {
+  HEAD
+  CHEST
+  GREAVES
+  BOOTS
+  GLOVES
+}
+
+type ArmorType {
+  id: ID!
+  name: String!
+  category: ArmorCategory!
+  position: ArmorPosition!
+  description: String
+  physicArmor: Int!
+  magicArmor: Int!
+  minBonusStrength: Int!
+  maxBonusStrength: Int!
+  minBonusDexterity: Int!
+  maxBonusDexterity: Int!
+  minBonusIntelligence: Int!
+  maxBonusIntelligence: Int!
+  minBonusVitality: Int!
+  maxBonusVitality: Int!
+}
+
 type Character {
   id: ID!
   name: String!
@@ -11,6 +43,23 @@ type Character {
   intelligence: Int!
   vitality: Int!
   equipment: Equipment!
+}
+
+input CreateArmorTypeInput {
+  name: String!
+  category: ArmorCategory!
+  position: ArmorPosition!
+  description: String
+  physicArmor: Int!
+  magicArmor: Int!
+  minBonusStrength: Int!
+  maxBonusStrength: Int!
+  minBonusDexterity: Int!
+  maxBonusDexterity: Int!
+  minBonusIntelligence: Int!
+  maxBonusIntelligence: Int!
+  minBonusVitality: Int!
+  maxBonusVitality: Int!
 }
 
 input CreateCharacterInput {
@@ -69,6 +118,7 @@ type Mutation {
   equipWeapon(equipWeaponData: EquipWeaponInput!): Character!
   createWeaponType(createWeaponTypeData: CreateWeaponTypeInput!): WeaponType!
   createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
+  createArmorType(createArmorTypeData: CreateArmorTypeInput!): ArmorType!
 }
 
 type Query {
@@ -77,6 +127,7 @@ type Query {
   weaponTypes: [WeaponType!]!
   weapon(id: String!): Weapon!
   weapons: [Weapon!]!
+  armorTypes: [ArmorType!]!
 }
 
 input UpdateCharacterInput {
