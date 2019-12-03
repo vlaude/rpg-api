@@ -3,6 +3,21 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Armor {
+  id: ID!
+  type: ArmorType!
+  name: String!
+  category: ArmorCategory!
+  position: ArmorPosition!
+  description: String
+  physicArmor: Int!
+  magicArmor: Int!
+  bonusStrength: Int!
+  bonusDexterity: Int!
+  bonusIntelligence: Int!
+  bonusVitality: Int!
+}
+
 enum ArmorCategory {
   LIGTH
   MEDIUM
@@ -43,6 +58,10 @@ type Character {
   intelligence: Int!
   vitality: Int!
   equipment: Equipment!
+}
+
+input CreateArmorInput {
+  armorTypeId: String!
 }
 
 input CreateArmorTypeInput {
@@ -118,6 +137,7 @@ type Mutation {
   equipWeapon(equipWeaponData: EquipWeaponInput!): Character!
   createWeaponType(createWeaponTypeData: CreateWeaponTypeInput!): WeaponType!
   createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
+  createArmor(createArmorData: CreateArmorInput!): Armor!
   createArmorType(createArmorTypeData: CreateArmorTypeInput!): ArmorType!
 }
 
@@ -127,6 +147,7 @@ type Query {
   weaponTypes: [WeaponType!]!
   weapon(id: String!): Weapon!
   weapons: [Weapon!]!
+  armors: [Armor!]!
   armorTypes: [ArmorType!]!
 }
 

@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Field, Int, ObjectType, ID } from 'type-graphql';
 import { ArmorPosition } from './armor-position.enum';
 import { ArmorCategory } from './armor-category.entity';
+import { Armor } from 'src/armor/armor/models/armor.entity';
 
 @Entity()
 @ObjectType()
@@ -65,4 +66,10 @@ export class ArmorType {
     @Column({ type: 'int' })
     @Field(type => Int)
     maxBonusVitality: number;
+
+    @OneToMany(
+        type => Armor,
+        armor => armor.type
+    )
+    instances?: Armor[];
 }
