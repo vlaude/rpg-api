@@ -3,13 +3,25 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type Armor {
+input AddItemInput {
+  characterId: String!
+  itemId: String!
+  type: AddItemType!
+}
+
+enum AddItemType {
+  ITEM
+  ARMOR
+  WEAPON
+}
+
+type Armor implements IItem {
   id: ID!
-  type: ArmorType!
   name: String!
+  description: String!
+  type: ArmorType!
   category: ArmorCategory!
   position: ArmorPosition!
-  description: String
   physicArmor: Int!
   magicArmor: Int!
   bonusStrength: Int!
@@ -58,6 +70,7 @@ type Character {
   intelligence: Int!
   vitality: Int!
   equipment: Equipment!
+  inventory: Inventory!
 }
 
 input CreateArmorInput {
@@ -120,7 +133,6 @@ enum DamageType {
 
 type Equipment {
   id: ID!
-  character: Character!
   handRight: Weapon
   handLeft: Weapon
   twoHanded: Weapon
@@ -131,22 +143,34 @@ input EquipWeaponInput {
   weaponId: String!
 }
 
+interface IItem {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Inventory {
+  id: ID!
+  items: [IItem!]!
+}
+
 type Mutation {
+  createWeaponType(createWeaponTypeData: CreateWeaponTypeInput!): WeaponType!
+  createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
   createCharacter(createCharacterData: CreateCharacterInput!): Character!
   updateCharacter(updateCharacterData: UpdateCharacterInput!): Character!
   equipWeapon(equipWeaponData: EquipWeaponInput!): Character!
-  createWeaponType(createWeaponTypeData: CreateWeaponTypeInput!): WeaponType!
-  createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
+  addItem(addItemData: AddItemInput!): Inventory!
   createArmor(createArmorData: CreateArmorInput!): Armor!
   createArmorType(createArmorTypeData: CreateArmorTypeInput!): ArmorType!
 }
 
 type Query {
-  character(id: String!): Character!
-  characters: [Character!]!
   weaponTypes: [WeaponType!]!
   weapon(id: String!): Weapon!
   weapons: [Weapon!]!
+  character(id: String!): Character!
+  characters: [Character!]!
   armors: [Armor!]!
   armorTypes: [ArmorType!]!
 }
@@ -156,14 +180,14 @@ input UpdateCharacterInput {
   name: String!
 }
 
-type Weapon {
+type Weapon implements IItem {
   id: ID!
-  type: WeaponType!
   name: String!
+  description: String!
+  type: WeaponType!
   category: WeaponCategory!
   damageType: DamageType!
   position: WeaponPosition!
-  description: String
   bonusStrength: Int!
   bonusDexterity: Int!
   bonusIntelligence: Int!

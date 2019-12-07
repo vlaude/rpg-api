@@ -4,6 +4,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { CharacterModule } from './character/character.module';
 import { WeaponModule } from './weapon/weapon.module';
 import { ArmorModule } from './armor/armor.module';
+import { ItemService } from './item/item.service';
+import { ItemModule } from './item/item.module';
 
 @Module({
     imports: [
@@ -15,7 +17,9 @@ import { ArmorModule } from './armor/armor.module';
         CharacterModule,
         WeaponModule,
         ArmorModule,
+        ItemModule,
     ],
     controllers: [],
+    providers: [ItemService],
 })
 export class AppModule {}

@@ -4,6 +4,8 @@ import { ArmorService } from './armor.service';
 import { CreateArmorInput } from './dto/create-armor.input';
 import { ArmorTypeService } from '../armor-type/armor-type.service';
 import { UserInputError } from 'apollo-server-errors';
+import { ArmorCategory } from '../armor-type/models/armor-category.entity';
+import { ArmorPosition } from '../armor-type/models/armor-position.enum';
 
 @Resolver(of => Armor)
 export class ArmorResolver {
@@ -24,32 +26,32 @@ export class ArmorResolver {
         return this.armorService.create(armorType);
     }
 
-    @ResolveProperty()
+    @ResolveProperty(returns => String)
     async name(@Parent() armor: Armor) {
         return armor.type.name;
     }
 
-    @ResolveProperty()
+    @ResolveProperty(returns => String)
     async description(@Parent() armor: Armor) {
         return armor.type.description;
     }
 
-    @ResolveProperty()
+    @ResolveProperty(returns => ArmorCategory)
     async category(@Parent() armor: Armor) {
         return armor.type.category;
     }
 
-    @ResolveProperty()
+    @ResolveProperty(returns => ArmorPosition)
     async position(@Parent() armor: Armor) {
         return armor.type.position;
     }
 
-    @ResolveProperty()
+    @ResolveProperty(returns => Number)
     async physicArmor(@Parent() armor: Armor) {
         return armor.type.physicArmor;
     }
 
-    @ResolveProperty()
+    @ResolveProperty(returns => Number)
     async magicArmor(@Parent() armor: Armor) {
         return armor.type.magicArmor;
     }

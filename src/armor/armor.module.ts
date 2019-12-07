@@ -10,5 +10,6 @@ import { Armor } from './armor/models/armor.entity';
 @Module({
     imports: [TypeOrmModule.forFeature([Armor, ArmorType])],
     providers: [ArmorResolver, ArmorService, ArmorTypeResolver, ArmorTypeService],
+    exports: [ArmorService],
 })
 export class ArmorModule {}

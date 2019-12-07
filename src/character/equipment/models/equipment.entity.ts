@@ -1,7 +1,7 @@
-import { Character } from 'src/character/models/character.entity';
 import { Weapon } from 'src/weapon/weapon/models/weapon.entity';
 import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
+import { Character } from 'src/character/character/models/character.entity';
 
 @Entity()
 @ObjectType()
@@ -9,10 +9,6 @@ export class Equipment {
     @PrimaryGeneratedColumn()
     @Field(type => ID)
     id: string;
-
-    @OneToOne(type => Character)
-    @Field(type => Character)
-    character: Character;
 
     @OneToOne(type => Weapon, { eager: true })
     @JoinColumn()

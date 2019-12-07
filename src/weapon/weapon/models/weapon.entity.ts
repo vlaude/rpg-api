@@ -4,13 +4,18 @@ import { WeaponType } from 'src/weapon/weapon-type/models/weapon-type.entity';
 import { WeaponPostion } from 'src/weapon/weapon-type/models/weapon-position.enum';
 import { WeaponCategory } from 'src/weapon/weapon-type/models/weapon-category.enum';
 import { DamageType } from 'src/weapon/weapon-type/models/damage-type.enum';
+import { Inventory } from 'src/character/inventory/models/inventory.entity';
+import { IItem } from 'src/item/models/item.interface';
 
 @Entity()
-@ObjectType()
-export class Weapon {
+@ObjectType({ implements: IItem })
+export class Weapon implements IItem {
     @PrimaryGeneratedColumn()
-    @Field(type => ID)
     id: string;
+
+    name: string;
+
+    description?: string;
 
     @ManyToOne(
         type => WeaponType,
@@ -20,8 +25,12 @@ export class Weapon {
     @Field(type => WeaponType)
     type: WeaponType;
 
-    @Field()
-    name: string;
+    @ManyToOne(
+        type => Inventory,
+        inventory => inventory.items,
+        { eager: true }
+    )
+    inventory: Inventory;
 
     @Field(type => WeaponCategory)
     category: WeaponCategory;
@@ -31,9 +40,6 @@ export class Weapon {
 
     @Field(type => WeaponPostion)
     position: WeaponPostion;
-
-    @Field({ nullable: true })
-    description?: string;
 
     @Column({ type: 'int' })
     @Field(type => Int)

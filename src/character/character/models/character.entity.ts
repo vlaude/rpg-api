@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID, Int } from 'type-graphql';
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
-import { Equipment } from '../equipment/models/equipment.entity';
+import { Equipment } from 'src/character/equipment/models/equipment.entity';
+import { Inventory } from 'src/character/inventory/models/inventory.entity';
 
 @Entity()
 @ObjectType()
@@ -33,4 +34,9 @@ export class Character {
     @JoinColumn()
     @Field(type => Equipment)
     equipment: Equipment;
+
+    @OneToOne(type => Inventory, { cascade: true, eager: true })
+    @JoinColumn()
+    @Field(type => Inventory)
+    inventory: Inventory;
 }
