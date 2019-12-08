@@ -1,10 +1,10 @@
-import { ArmorType } from 'src/armor/armor-type/models/armor-type.entity';
-import { ArmorCategory } from 'src/armor/armor-type/models/armor-category.entity';
-import { ArmorPosition } from 'src/armor/armor-type/models/armor-position.enum';
 import { PrimaryGeneratedColumn, ManyToOne, In, Column, Entity } from 'typeorm';
 import { Field, ID, Int, ObjectType } from 'type-graphql';
 import { Inventory } from 'src/character/inventory/models/inventory.entity';
-import { IItem } from 'src/item/models/item.interface';
+import { IItem } from 'src/item/item/models/item.interface';
+import { ArmorType } from '../../armor-type/models/armor-type.entity';
+import { ArmorCategory } from '../../armor-type/models/armor-category.entity';
+import { ArmorPosition } from '../../armor-type/models/armor-position.enum';
 
 @Entity()
 @ObjectType({ implements: IItem })

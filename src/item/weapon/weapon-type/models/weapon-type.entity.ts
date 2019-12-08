@@ -1,12 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Field, Int, ObjectType, ID } from 'type-graphql';
-import { ArmorPosition } from './armor-position.enum';
-import { ArmorCategory } from './armor-category.entity';
-import { Armor } from 'src/armor/armor/models/armor.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { ObjectType, Field, ID, Int } from 'type-graphql';
+import { WeaponCategory } from './weapon-category.enum';
+import { WeaponPostion } from './weapon-position.enum';
+import { DamageType } from './damage-type.enum';
+import { Weapon } from '../../weapon/models/weapon.entity';
 
 @Entity()
 @ObjectType()
-export class ArmorType {
+export class WeaponType {
     @PrimaryGeneratedColumn()
     @Field(type => ID)
     id: string;
@@ -15,13 +16,17 @@ export class ArmorType {
     @Field()
     name: string;
 
-    @Column({ type: 'enum', enum: ArmorCategory })
-    @Field(type => ArmorCategory)
-    category: ArmorCategory;
+    @Column({ type: 'enum', enum: WeaponCategory })
+    @Field(type => WeaponCategory)
+    category: WeaponCategory;
 
-    @Column({ type: 'enum', enum: ArmorPosition })
-    @Field(type => ArmorPosition)
-    position: ArmorPosition;
+    @Column({ type: 'enum', enum: DamageType })
+    @Field(type => DamageType)
+    damageType: DamageType;
+
+    @Column({ type: 'enum', enum: WeaponPostion })
+    @Field(type => WeaponPostion)
+    position: WeaponPostion;
 
     @Column({ type: 'text', nullable: true })
     @Field({ nullable: true })
@@ -29,11 +34,11 @@ export class ArmorType {
 
     @Column({ type: 'int' })
     @Field(type => Int)
-    physicArmor: number;
+    minimumDamage: number;
 
     @Column({ type: 'int' })
     @Field(type => Int)
-    magicArmor: number;
+    maximumDamage: number;
 
     @Column({ type: 'int' })
     @Field(type => Int)
@@ -68,8 +73,8 @@ export class ArmorType {
     maxBonusVitality: number;
 
     @OneToMany(
-        type => Armor,
-        armor => armor.type
+        type => Weapon,
+        weapon => weapon.type
     )
-    instances?: Armor[];
+    instances?: Weapon[];
 }

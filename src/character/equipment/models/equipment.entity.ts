@@ -1,7 +1,7 @@
-import { Weapon } from 'src/weapon/weapon/models/weapon.entity';
 import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
 import { Character } from 'src/character/character/models/character.entity';
+import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
 
 @Entity()
 @ObjectType()

@@ -4,12 +4,10 @@ import { CharacterService } from '../character/character.service';
 import { AddItemInput } from './dto/add-item.input';
 import { UserInputError } from 'apollo-server-errors';
 import { AddItemType } from './dto/item-type.enum';
-import { WeaponService } from 'src/weapon/weapon/weapon.service';
-import { ArmorService } from 'src/armor/armor/armor.service';
-import { Weapon } from 'src/weapon/weapon/models/weapon.entity';
-import { Armor } from 'src/armor/armor/models/armor.entity';
 import { InventoryService } from './inventory.service';
-import { IItem } from 'src/item/models/item.interface';
+import { WeaponService } from 'src/item/weapon/weapon/weapon.service';
+import { ArmorService } from 'src/item/armor/armor/armor.service';
+import { IItem } from 'src/item/item/models/item.interface';
 
 @Resolver(of => Inventory)
 export class InventoryResolver {

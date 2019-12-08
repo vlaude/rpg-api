@@ -5,7 +5,7 @@ import { CreateCharacterInput } from './dto/create-character.input';
 import { UpdateCharacterInput } from './dto/update-character-input';
 import { Character } from './models/character.entity';
 import { EquipWeaponInput } from './dto/equip-weapon.input';
-import { WeaponService } from 'src/weapon/weapon/weapon.service';
+import { WeaponService } from 'src/item/weapon/weapon/weapon.service';
 
 @Resolver(of => Character)
 export class CharacterResolver {

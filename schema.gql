@@ -155,22 +155,22 @@ type Inventory {
 }
 
 type Mutation {
-  createWeaponType(createWeaponTypeData: CreateWeaponTypeInput!): WeaponType!
-  createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
   createCharacter(createCharacterData: CreateCharacterInput!): Character!
   updateCharacter(updateCharacterData: UpdateCharacterInput!): Character!
   equipWeapon(equipWeaponData: EquipWeaponInput!): Character!
   addItem(addItemData: AddItemInput!): Inventory!
+  createWeaponType(createWeaponTypeData: CreateWeaponTypeInput!): WeaponType!
+  createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
   createArmor(createArmorData: CreateArmorInput!): Armor!
   createArmorType(createArmorTypeData: CreateArmorTypeInput!): ArmorType!
 }
 
 type Query {
+  character(id: String!): Character!
+  characters: [Character!]!
   weaponTypes: [WeaponType!]!
   weapon(id: String!): Weapon!
   weapons: [Weapon!]!
-  character(id: String!): Character!
-  characters: [Character!]!
   armors: [Armor!]!
   armorTypes: [ArmorType!]!
 }

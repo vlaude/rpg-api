@@ -1,9 +1,9 @@
 import { EntityRepository, EntityManager, Connection } from 'typeorm';
 import { IItem } from './models/item.interface';
-import { Armor } from 'src/armor/armor/models/armor.entity';
-import { Weapon } from 'src/weapon/weapon/models/weapon.entity';
 import { Inventory } from 'src/character/inventory/models/inventory.entity';
 import { Logger } from '@nestjs/common';
+import { Weapon } from '../weapon/weapon/models/weapon.entity';
+import { Armor } from '../armor/armor/models/armor.entity';
 
 @EntityRepository()
 export class ItemRepository {

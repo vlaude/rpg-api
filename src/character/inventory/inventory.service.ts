@@ -1,12 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Character } from '../character/models/character.entity';
-import { Weapon } from 'src/weapon/weapon/models/weapon.entity';
-import { Armor } from 'src/armor/armor/models/armor.entity';
 import { Inventory } from './models/inventory.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { IItem } from 'src/item/models/item.interface';
-import { ItemRepository } from 'src/item/item.repository';
+import { ItemRepository } from 'src/item/item/item.repository';
+import { IItem } from 'src/item/item/models/item.interface';
 
 @Injectable()
 export class InventoryService {

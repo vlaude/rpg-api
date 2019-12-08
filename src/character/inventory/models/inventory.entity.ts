@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Armor } from 'src/armor/armor/models/armor.entity';
-import { Weapon } from 'src/weapon/weapon/models/weapon.entity';
 import { ObjectType, Field, ID } from 'type-graphql';
-import { IItem } from 'src/item/models/item.interface';
+import { Armor } from 'src/item/armor/armor/models/armor.entity';
+import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
+import { IItem } from 'src/item/item/models/item.interface';
 
 @Entity()
 @ObjectType()

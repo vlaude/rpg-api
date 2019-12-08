@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ArmorModule } from 'src/armor/armor.module';
-import { WeaponModule } from 'src/weapon/weapon.module';
-import { ItemService } from './item.service';
-import { ItemRepositoryProvider } from './item.repository';
+import { ItemService } from './item/item.service';
+import { ItemRepositoryProvider } from './item/item.repository';
 
 @Module({
     providers: [ItemService, ItemRepositoryProvider],
