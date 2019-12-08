@@ -157,12 +157,12 @@ type Inventory {
 type Mutation {
   createCharacter(createCharacterData: CreateCharacterInput!): Character!
   updateCharacter(updateCharacterData: UpdateCharacterInput!): Character!
-  equipWeapon(equipWeaponData: EquipWeaponInput!): Character!
   addItem(addItemData: AddItemInput!): Inventory!
   createWeaponType(createWeaponTypeData: CreateWeaponTypeInput!): WeaponType!
   createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
   createArmor(createArmorData: CreateArmorInput!): Armor!
   createArmorType(createArmorTypeData: CreateArmorTypeInput!): ArmorType!
+  equipWeapon(equipWeaponData: EquipWeaponInput!): Character!
 }
 
 type Query {

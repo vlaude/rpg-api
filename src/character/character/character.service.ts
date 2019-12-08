@@ -43,20 +43,4 @@ export class CharacterService {
         });
         return this.characterRepository.findOne(updateCharacterData.id);
     }
-
-    // TODO If a weapon is already equiped at the new weapon position, put the old weapon on character's inventory
-    async equipWeapon(character: Character, weapon: Weapon): Promise<Character> {
-        switch (weapon.type.position) {
-            case WeaponPostion.HAND_LEFT:
-                character.equipment.handLeft = weapon;
-                break;
-            case WeaponPostion.HAND_RIGHT:
-                character.equipment.handRight = weapon;
-                break;
-            case WeaponPostion.TWO_HANDED:
-                character.equipment.twoHanded = weapon;
-                break;
-        }
-        return this.characterRepository.save(character);
-    }
 }

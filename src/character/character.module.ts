@@ -11,9 +11,11 @@ import { WeaponModule } from 'src/item/weapon/weapon.module';
 import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
 import { ArmorModule } from 'src/item/armor/armor.module';
 import { Armor } from 'src/item/armor/armor/models/armor.entity';
+import { EquipmentResolver } from './equipment/equipment.resolver';
+import { EquipmentService } from './equipment/equipment.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Character, Inventory, Weapon, Armor]), WeaponModule, ArmorModule, ItemModule],
-    providers: [CharacterResolver, CharacterService, InventoryResolver, InventoryService],
+    providers: [CharacterResolver, CharacterService, InventoryResolver, InventoryService, EquipmentResolver, EquipmentService],
 })
 export class CharacterModule {}
