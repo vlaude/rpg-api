@@ -8,6 +8,7 @@ import { InventoryService } from './inventory.service';
 import { WeaponService } from 'src/item/weapon/weapon/weapon.service';
 import { ArmorService } from 'src/item/armor/armor/armor.service';
 import { IItem } from 'src/item/item/models/item.interface';
+import { Logger } from '@nestjs/common';
 
 @Resolver(of => Inventory)
 export class InventoryResolver {
@@ -24,6 +25,8 @@ export class InventoryResolver {
         if (!character) {
             throw new UserInputError(`No character found for id ${addItemData.characterId}`);
         }
+
+        // Find item by its type
         let item: IItem;
         switch (addItemData.type) {
             case AddItemType.WEAPON:
@@ -37,6 +40,12 @@ export class InventoryResolver {
         }
         if (!item) {
             throw new UserInputError(`No item found for id ${addItemData.itemId} or you passed a wrong type`);
+        }
+
+        // Check if inventory is full
+        const itemsAlreadyInInventory = await this.inventoryService.findItemsByInventoryId(character.inventory.id);
+        if (itemsAlreadyInInventory.length >= character.inventory.capacity) {
+            throw new UserInputError(`Inventory is full`);
         }
 
         return await this.inventoryService.addItem(character, item);

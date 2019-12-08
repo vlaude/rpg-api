@@ -5,6 +5,7 @@ import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
 
 @Entity()
 @ObjectType()
+// TODO Delete cascade with Character
 export class Equipment {
     @PrimaryGeneratedColumn()
     @Field(type => ID)

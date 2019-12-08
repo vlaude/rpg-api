@@ -152,6 +152,8 @@ interface IItem {
 type Inventory {
   id: ID!
   items: [IItem!]!
+  golds: Int!
+  capacity: Int!
 }
 
 type Mutation {
