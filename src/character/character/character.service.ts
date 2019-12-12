@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { Character } from './entities/character.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCharacterInput } from './dto/create-character.input';
 import { UpdateCharacterInput } from './dto/update-character-input';
+import { Character } from './models/character.entity';
+import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
+import { WeaponPostion } from 'src/item/weapon/weapon-type/models/weapon-position.enum';
 
 @Injectable()
 export class CharacterService {
@@ -25,7 +27,13 @@ export class CharacterService {
     }
 
     async create(createCharacterData: CreateCharacterInput): Promise<Character> {
-        const character = this.characterRepository.create(createCharacterData);
+        // Cascade will create Equipment and Inventory automatically
+        const createCharacter = {
+            ...createCharacterData,
+            equipment: {},
+            inventory: {},
+        };
+        const character = this.characterRepository.create(createCharacter);
         return this.characterRepository.save(character);
     }
 

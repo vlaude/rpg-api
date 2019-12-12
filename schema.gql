@@ -3,6 +3,65 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+input AddItemInput {
+  characterId: String!
+  itemId: String!
+  type: AddItemType!
+}
+
+enum AddItemType {
+  ITEM
+  ARMOR
+  WEAPON
+}
+
+type Armor implements IItem {
+  id: ID!
+  name: String!
+  description: String!
+  type: ArmorType!
+  category: ArmorCategory!
+  position: ArmorPosition!
+  physicArmor: Int!
+  magicArmor: Int!
+  bonusStrength: Int!
+  bonusDexterity: Int!
+  bonusIntelligence: Int!
+  bonusVitality: Int!
+}
+
+enum ArmorCategory {
+  LIGTH
+  MEDIUM
+  HEAVY
+}
+
+enum ArmorPosition {
+  HEAD
+  CHEST
+  GREAVES
+  BOOTS
+  GLOVES
+}
+
+type ArmorType {
+  id: ID!
+  name: String!
+  category: ArmorCategory!
+  position: ArmorPosition!
+  description: String
+  physicArmor: Int!
+  magicArmor: Int!
+  minBonusStrength: Int!
+  maxBonusStrength: Int!
+  minBonusDexterity: Int!
+  maxBonusDexterity: Int!
+  minBonusIntelligence: Int!
+  maxBonusIntelligence: Int!
+  minBonusVitality: Int!
+  maxBonusVitality: Int!
+}
+
 type Character {
   id: ID!
   name: String!
@@ -10,6 +69,29 @@ type Character {
   dexterity: Int!
   intelligence: Int!
   vitality: Int!
+  equipment: Equipment!
+  inventory: Inventory!
+}
+
+input CreateArmorInput {
+  armorTypeId: String!
+}
+
+input CreateArmorTypeInput {
+  name: String!
+  category: ArmorCategory!
+  position: ArmorPosition!
+  description: String
+  physicArmor: Int!
+  magicArmor: Int!
+  minBonusStrength: Int!
+  maxBonusStrength: Int!
+  minBonusDexterity: Int!
+  maxBonusDexterity: Int!
+  minBonusIntelligence: Int!
+  maxBonusIntelligence: Int!
+  minBonusVitality: Int!
+  maxBonusVitality: Int!
 }
 
 input CreateCharacterInput {
@@ -20,16 +102,130 @@ input CreateCharacterInput {
   vitality: Int
 }
 
+input CreateWeaponInput {
+  weaponTypeId: String!
+}
+
+input CreateWeaponTypeInput {
+  name: String!
+  category: WeaponCategory!
+  damageType: DamageType!
+  position: WeaponPosition!
+  description: String
+  minimumDamage: Int!
+  maximumDamage: Int!
+  minBonusStrength: Int!
+  maxBonusStrength: Int!
+  minBonusDexterity: Int!
+  maxBonusDexterity: Int!
+  minBonusIntelligence: Int!
+  maxBonusIntelligence: Int!
+  minBonusVitality: Int!
+  maxBonusVitality: Int!
+}
+
+enum DamageType {
+  MELEE_PHYSICAL
+  MELEE_MAGIC
+  DISTANCE_PHYSICAL
+  DISTANCE_MAGIC
+}
+
+type Equipment {
+  id: ID!
+  handRight: Weapon
+  handLeft: Weapon
+  twoHanded: Weapon
+}
+
+input EquipWeaponInput {
+  characterId: String!
+  weaponId: String!
+}
+
+interface IItem {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Inventory {
+  id: ID!
+  items: [IItem!]!
+  golds: Int!
+  capacity: Int!
+}
+
 type Mutation {
   createCharacter(createCharacterData: CreateCharacterInput!): Character!
   updateCharacter(updateCharacterData: UpdateCharacterInput!): Character!
+  addItem(addItemData: AddItemInput!): Inventory!
+  createWeaponType(createWeaponTypeData: CreateWeaponTypeInput!): WeaponType!
+  createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
+  createArmor(createArmorData: CreateArmorInput!): Armor!
+  createArmorType(createArmorTypeData: CreateArmorTypeInput!): ArmorType!
+  equipWeapon(equipWeaponData: EquipWeaponInput!): Character!
 }
 
 type Query {
+  character(id: String!): Character!
   characters: [Character!]!
+  weaponTypes: [WeaponType!]!
+  weapon(id: String!): Weapon!
+  weapons: [Weapon!]!
+  armors: [Armor!]!
+  armorTypes: [ArmorType!]!
 }
 
 input UpdateCharacterInput {
   id: String!
   name: String!
+}
+
+type Weapon implements IItem {
+  id: ID!
+  name: String!
+  description: String!
+  type: WeaponType!
+  category: WeaponCategory!
+  damageType: DamageType!
+  position: WeaponPosition!
+  bonusStrength: Int!
+  bonusDexterity: Int!
+  bonusIntelligence: Int!
+  bonusVitality: Int!
+}
+
+enum WeaponCategory {
+  SWORD
+  AXE
+  MACE
+  BOW
+  WAND
+  STAFF
+}
+
+enum WeaponPosition {
+  TWO_HANDED
+  HAND_RIGHT
+  HAND_LEFT
+}
+
+type WeaponType {
+  id: ID!
+  name: String!
+  category: WeaponCategory!
+  damageType: DamageType!
+  position: WeaponPosition!
+  description: String
+  minimumDamage: Int!
+  maximumDamage: Int!
+  minBonusStrength: Int!
+  maxBonusStrength: Int!
+  minBonusDexterity: Int!
+  maxBonusDexterity: Int!
+  minBonusIntelligence: Int!
+  maxBonusIntelligence: Int!
+  minBonusVitality: Int!
+  maxBonusVitality: Int!
 }
