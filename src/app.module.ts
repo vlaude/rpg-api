@@ -5,7 +5,7 @@ import { CharacterModule } from './character/character.module';
 import { ItemModule } from './item/item.module';
 import { ArmorModule } from './item/armor/armor.module';
 import { WeaponModule } from './item/weapon/weapon.module';
-import { ItemService } from './item/item/item.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -13,13 +13,15 @@ import { ItemService } from './item/item/item.service';
         GraphQLModule.forRoot({
             playground: true,
             autoSchemaFile: 'schema.gql',
+            context: ({ req }) => ({ req }),
         }),
         CharacterModule,
         WeaponModule,
         ArmorModule,
         ItemModule,
+        AuthModule,
     ],
     controllers: [],
-    providers: [ItemService],
+    providers: [],
 })
 export class AppModule {}
