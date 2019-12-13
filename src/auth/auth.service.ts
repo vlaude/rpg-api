@@ -1,34 +1,26 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from './models/user.entity';
+import { Repository } from 'typeorm';
+import { RegisterInput } from './dto/register.input';
+import { AuthResponse } from './dto/auth-response';
 import { sign } from 'jsonwebtoken';
-
-export enum Provider {
-    GOOGLE = 'google',
-}
 
 @Injectable()
 export class AuthService {
-    private readonly JWT_SECRET_KEY = 'IamSuperSecret';
+    private readonly JWT_SECRET_KEY = 'ImSuperSecret!';
 
-    constructor(/*private readonly usersService: UsersService*/) {}
+    constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
 
-    async validateOAuthLogin(thirdPartyId: string, provider: Provider): Promise<string> {
-        try {
-            // You can add some registration logic here,
-            // to register the user using their thirdPartyId (in this case their googleId)
-            // let user: IUser = await this.usersService.findOneByThirdPartyId(thirdPartyId, provider);
+    async register(registerData: RegisterInput): Promise<AuthResponse> {
+        const createUser = this.userRepository.create(registerData);
+        const user = await this.userRepository.save(createUser);
 
-            // if (!user)
-            // user = await this.usersService.registerOAuthUser(thirdPartyId, provider);
-
-            const payload = {
-                thirdPartyId,
-                provider,
-            };
-
-            const jwt: string = sign(payload, this.JWT_SECRET_KEY, { expiresIn: 3600 });
-            return jwt;
-        } catch (err) {
-            throw new InternalServerErrorException('validateOAuthLogin', err.message);
-        }
+        // Create a JWT with jsonwebtoken
+        const jwt = sign({ id: user.id }, this.JWT_SECRET_KEY, { expiresIn: 3600 });
+        return {
+            token: jwt,
+            message: `User ${user.username} created`,
+        };
     }
 }

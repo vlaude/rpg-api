@@ -1,7 +1,8 @@
 import { ObjectType, Field, ID, Int } from 'type-graphql';
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
 import { Equipment } from 'src/character/equipment/models/equipment.entity';
 import { Inventory } from 'src/character/inventory/models/inventory.entity';
+import { User } from 'src/auth/models/user.entity';
 
 @Entity()
 @ObjectType()
@@ -39,4 +40,10 @@ export class Character {
     @JoinColumn()
     @Field(type => Inventory)
     inventory: Inventory;
+
+    @ManyToOne(
+        type => User,
+        user => user.characters
+    )
+    owner: User;
 }

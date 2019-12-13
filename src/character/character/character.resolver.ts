@@ -7,7 +7,6 @@ import { Character } from './models/character.entity';
 import { WeaponService } from 'src/item/weapon/weapon/weapon.service';
 import { AuthGuard } from '@nestjs/passport';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from 'src/auth/gql-auth.guard';
 
 @Resolver(of => Character)
 export class CharacterResolver {
@@ -23,7 +22,6 @@ export class CharacterResolver {
     }
 
     @Query(returns => [Character], { name: 'characters' })
-    @UseGuards(GqlAuthGuard)
     async getCharacters(): Promise<Character[]> {
         return await this.characterService.findAll();
     }
