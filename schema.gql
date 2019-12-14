@@ -161,6 +161,11 @@ type Inventory {
   capacity: Int!
 }
 
+input LoginInput {
+  username: String!
+  password: String!
+}
+
 type Mutation {
   createCharacter(createCharacterData: CreateCharacterInput!): Character!
   updateCharacter(updateCharacterData: UpdateCharacterInput!): Character!
@@ -181,6 +186,7 @@ type Query {
   weapons: [Weapon!]!
   armors: [Armor!]!
   armorTypes: [ArmorType!]!
+  login(loginData: LoginInput!): AuthResponse!
 }
 
 input RegisterInput {
