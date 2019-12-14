@@ -13,9 +13,26 @@ import { ArmorModule } from 'src/item/armor/armor.module';
 import { Armor } from 'src/item/armor/armor/models/armor.entity';
 import { EquipmentResolver } from './equipment/equipment.resolver';
 import { EquipmentService } from './equipment/equipment.service';
+import { RaceResolver } from './race/race.resolver';
+import { RaceService } from './race/race.service';
+import { Race } from './race/models/race.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Character, Inventory, Weapon, Armor]), WeaponModule, ArmorModule, ItemModule],
-    providers: [CharacterResolver, CharacterService, InventoryResolver, InventoryService, EquipmentResolver, EquipmentService],
+    imports: [
+        TypeOrmModule.forFeature([Character, Inventory, Weapon, Armor, Race]),
+        WeaponModule,
+        ArmorModule,
+        ItemModule,
+    ],
+    providers: [
+        CharacterResolver,
+        CharacterService,
+        InventoryResolver,
+        InventoryService,
+        EquipmentResolver,
+        EquipmentService,
+        RaceResolver,
+        RaceService,
+    ],
 })
 export class CharacterModule {}

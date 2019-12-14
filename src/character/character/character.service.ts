@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCharacterInput } from './dto/create-character.input';
@@ -32,9 +32,15 @@ export class CharacterService {
             ...createCharacterData,
             equipment: {},
             inventory: {},
+            race: {
+                id: createCharacterData.raceId,
+            },
         };
         const character = this.characterRepository.create(createCharacter);
-        return this.characterRepository.save(character);
+        // save does not return id when cascade insert
+        // @see https://github.com/typeorm/typeorm/issues/4090
+        const createdCharacter = await this.characterRepository.save(character);
+        return this.findOneByName(createdCharacter.name);
     }
 
     async update(updateCharacterData: UpdateCharacterInput): Promise<Character> {
