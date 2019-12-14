@@ -62,6 +62,11 @@ type ArmorType {
   maxBonusVitality: Int!
 }
 
+type AuthResponse {
+  token: String!
+  message: String
+}
+
 type Character {
   id: ID!
   name: String!
@@ -165,6 +170,7 @@ type Mutation {
   createArmor(createArmorData: CreateArmorInput!): Armor!
   createArmorType(createArmorTypeData: CreateArmorTypeInput!): ArmorType!
   equipWeapon(equipWeaponData: EquipWeaponInput!): Character!
+  register(registerData: RegisterInput!): AuthResponse!
 }
 
 type Query {
@@ -177,9 +183,29 @@ type Query {
   armorTypes: [ArmorType!]!
 }
 
+input RegisterInput {
+  username: String!
+  password: String!
+  email: String
+}
+
 input UpdateCharacterInput {
   id: String!
   name: String!
+}
+
+type User {
+  id: ID!
+  username: String!
+  role: UserRole!
+  characters: [Character!]!
+}
+
+enum UserRole {
+  USER
+  MJ
+  ADMIN
+  GOD
 }
 
 type Weapon implements IItem {

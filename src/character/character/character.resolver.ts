@@ -5,6 +5,8 @@ import { CreateCharacterInput } from './dto/create-character.input';
 import { UpdateCharacterInput } from './dto/update-character-input';
 import { Character } from './models/character.entity';
 import { WeaponService } from 'src/item/weapon/weapon/weapon.service';
+import { AuthGuard } from '@nestjs/passport';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver(of => Character)
 export class CharacterResolver {
