@@ -76,6 +76,7 @@ type Character {
   vitality: Int!
   equipment: Equipment!
   inventory: Inventory!
+  race: Race!
 }
 
 input CreateArmorInput {
@@ -105,6 +106,16 @@ input CreateCharacterInput {
   dexterity: Int
   intelligence: Int
   vitality: Int
+  raceId: String!
+}
+
+input CreateRaceInput {
+  name: String!
+  description: String
+  base_strength: Int!
+  base_dexterity: Int!
+  base_intelligence: Int!
+  base_vitality: Int!
 }
 
 input CreateWeaponInput {
@@ -161,6 +172,11 @@ type Inventory {
   capacity: Int!
 }
 
+input LoginInput {
+  username: String!
+  password: String!
+}
+
 type Mutation {
   createCharacter(createCharacterData: CreateCharacterInput!): Character!
   updateCharacter(updateCharacterData: UpdateCharacterInput!): Character!
@@ -170,6 +186,7 @@ type Mutation {
   createArmor(createArmorData: CreateArmorInput!): Armor!
   createArmorType(createArmorTypeData: CreateArmorTypeInput!): ArmorType!
   equipWeapon(equipWeaponData: EquipWeaponInput!): Character!
+  createRace(createRaceData: CreateRaceInput!): Race!
   register(registerData: RegisterInput!): AuthResponse!
 }
 
@@ -181,6 +198,18 @@ type Query {
   weapons: [Weapon!]!
   armors: [Armor!]!
   armorTypes: [ArmorType!]!
+  races: [Race!]!
+  login(loginData: LoginInput!): AuthResponse!
+}
+
+type Race {
+  id: ID!
+  name: String!
+  description: String
+  base_strength: Int!
+  base_dexterity: Int!
+  base_intelligence: Int!
+  base_vitality: Int!
 }
 
 input RegisterInput {

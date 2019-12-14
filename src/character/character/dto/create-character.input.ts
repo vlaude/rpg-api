@@ -16,4 +16,7 @@ export class CreateCharacterInput {
 
     @Field(type => Int, { nullable: true })
     vitality?: number;
+
+    @Field()
+    raceId: string;
 }

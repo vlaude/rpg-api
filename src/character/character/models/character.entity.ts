@@ -3,6 +3,7 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, ManyToOne
 import { Equipment } from 'src/character/equipment/models/equipment.entity';
 import { Inventory } from 'src/character/inventory/models/inventory.entity';
 import { User } from 'src/auth/models/user.entity';
+import { Race } from 'src/character/race/models/race.entity';
 
 @Entity()
 @ObjectType()
@@ -40,6 +41,10 @@ export class Character {
     @JoinColumn()
     @Field(type => Inventory)
     inventory: Inventory;
+
+    @ManyToOne(type => Race, { nullable: false, eager: true })
+    @Field()
+    race: Race;
 
     @ManyToOne(
         type => User,
