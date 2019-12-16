@@ -6,6 +6,7 @@ import { ItemModule } from './item/item.module';
 import { ArmorModule } from './item/armor/armor.module';
 import { WeaponModule } from './item/weapon/weapon.module';
 import { AuthModule } from './auth/auth.module';
+import { CapacityModule } from './capacity/capacity.module';
 
 @Module({
     imports: [
@@ -20,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
         ArmorModule,
         ItemModule,
         AuthModule,
+        CapacityModule,
     ],
     controllers: [],
     providers: [],
