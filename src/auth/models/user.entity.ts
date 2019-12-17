@@ -28,7 +28,7 @@ export class User {
 
     @OneToMany(
         type => Character,
-        character => character.owner
+        character => character.player
     )
     @Field(type => [Character])
     characters: Character[];

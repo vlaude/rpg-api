@@ -70,10 +70,10 @@ type AuthResponse {
 type Character {
   id: ID!
   name: String!
-  strength: Int!
-  dexterity: Int!
-  intelligence: Int!
-  vitality: Int!
+  strength: Int
+  dexterity: Int
+  intelligence: Int
+  vitality: Int
   equipment: Equipment!
   inventory: Inventory!
   race: Race!
@@ -102,10 +102,6 @@ input CreateArmorTypeInput {
 
 input CreateCharacterInput {
   name: String!
-  strength: Int
-  dexterity: Int
-  intelligence: Int
-  vitality: Int
   raceId: String!
 }
 
