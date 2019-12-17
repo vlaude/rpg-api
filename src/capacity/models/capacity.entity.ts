@@ -16,8 +16,8 @@ export class Capacity {
     @Column({ unique: true })
     name: string;
 
-    @Column({ type: 'text' })
-    description: string;
+    @Column({ type: 'text', nullable: true })
+    description?: string;
 
     @Column({ type: 'int', default: 0 })
     healthCost: number;
@@ -34,10 +34,10 @@ export class Capacity {
     @Column({ type: 'boolean', default: false })
     giveInitiative: boolean;
 
-    @Column({ type: 'boolean' })
+    @Column({ type: 'boolean', default: false })
     counterSpell: boolean;
 
-    @Column({ type: 'boolean' })
+    @Column({ type: 'boolean', default: false })
     counterSkill: boolean;
 
     @Column({ type: 'int', default: 1 })
@@ -49,7 +49,7 @@ export class Capacity {
     @ManyToOne(type => Race, { nullable: true })
     raceRequired: Race;
 
-    @Column({ type: 'int' })
+    @Column({ type: 'int', default: 0 })
     cooldown: number;
 
     @Column(type => StatAlteration)
