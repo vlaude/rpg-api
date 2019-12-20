@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { ObjectType, Field, ID, Int } from 'type-graphql';
 import { WeaponCategory } from './weapon-category.enum';
-import { WeaponPostion } from './weapon-position.enum';
-import { DamageType } from './damage-type.enum';
 import { Weapon } from '../../weapon/models/weapon.entity';
+import { EquipmentPosition } from 'src/character/equipment/models/equipment-position.enum';
+import { WeaponDamageType } from './weapon-damage-type.enum';
 
 @Entity()
 @ObjectType()
@@ -16,17 +16,18 @@ export class WeaponType {
     @Field()
     name: string;
 
+    // TODO Add constraint on position
+    @Column({ type: 'enum', enum: EquipmentPosition })
+    @Field(type => EquipmentPosition)
+    position: EquipmentPosition;
+
     @Column({ type: 'enum', enum: WeaponCategory })
     @Field(type => WeaponCategory)
     category: WeaponCategory;
 
-    @Column({ type: 'enum', enum: DamageType })
-    @Field(type => DamageType)
-    damageType: DamageType;
-
-    @Column({ type: 'enum', enum: WeaponPostion })
-    @Field(type => WeaponPostion)
-    position: WeaponPostion;
+    @Column({ type: 'enum', enum: WeaponDamageType })
+    @Field(type => WeaponDamageType)
+    damageType: WeaponDamageType;
 
     @Column({ type: 'text', nullable: true })
     @Field({ nullable: true })

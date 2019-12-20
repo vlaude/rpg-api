@@ -5,7 +5,6 @@ import { CreateCharacterInput } from './dto/create-character.input';
 import { UpdateCharacterInput } from './dto/update-character-input';
 import { Character } from './models/character.entity';
 import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
-import { WeaponPostion } from 'src/item/weapon/weapon-type/models/weapon-position.enum';
 
 @Injectable()
 export class CharacterService {

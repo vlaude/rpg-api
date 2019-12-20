@@ -5,7 +5,7 @@ import { CreateArmorInput } from './dto/create-armor.input';
 import { ArmorTypeService } from '../armor-type/armor-type.service';
 import { UserInputError } from 'apollo-server-errors';
 import { ArmorCategory } from '../armor-type/models/armor-category.entity';
-import { ArmorPosition } from '../armor-type/models/armor-position.enum';
+import { EquipmentPosition } from 'src/character/equipment/models/equipment-position.enum';
 
 @Resolver(of => Armor)
 export class ArmorResolver {
@@ -41,7 +41,7 @@ export class ArmorResolver {
         return armor.type.category;
     }
 
-    @ResolveProperty(returns => ArmorPosition)
+    @ResolveProperty(returns => EquipmentPosition)
     async position(@Parent() armor: Armor) {
         return armor.type.position;
     }

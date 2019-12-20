@@ -15,13 +15,13 @@ enum AddItemType {
   WEAPON
 }
 
-type Armor implements IItem {
+type Armor implements IEquipable & IItem {
+  position: EquipmentPosition!
   id: ID!
   name: String!
   description: String!
   type: ArmorType!
   category: ArmorCategory!
-  position: ArmorPosition!
   physicArmor: Int!
   magicArmor: Int!
   bonusStrength: Int!
@@ -36,20 +36,11 @@ enum ArmorCategory {
   HEAVY
 }
 
-enum ArmorPosition {
-  HEAD
-  CHEST
-  SHOULDERS
-  GREAVES
-  BOOTS
-  GLOVES
-}
-
 type ArmorType {
   id: ID!
   name: String!
+  position: EquipmentPosition!
   category: ArmorCategory!
-  position: ArmorPosition!
   description: String
   physicArmor: Int!
   magicArmor: Int!
@@ -71,10 +62,10 @@ type AuthResponse {
 type Character {
   id: ID!
   name: String!
-  strength: Int!
-  dexterity: Int!
-  intelligence: Int!
-  vitality: Int!
+  strength: Int
+  dexterity: Int
+  intelligence: Int
+  vitality: Int
   equipment: Equipment!
   inventory: Inventory!
   race: Race!
@@ -87,7 +78,7 @@ input CreateArmorInput {
 input CreateArmorTypeInput {
   name: String!
   category: ArmorCategory!
-  position: ArmorPosition!
+  position: EquipmentPosition!
   description: String
   physicArmor: Int!
   magicArmor: Int!
@@ -103,10 +94,6 @@ input CreateArmorTypeInput {
 
 input CreateCharacterInput {
   name: String!
-  strength: Int
-  dexterity: Int
-  intelligence: Int
-  vitality: Int
   raceId: String!
 }
 
@@ -126,8 +113,8 @@ input CreateWeaponInput {
 input CreateWeaponTypeInput {
   name: String!
   category: WeaponCategory!
-  damageType: DamageType!
-  position: WeaponPosition!
+  damageType: WeaponDamageType!
+  position: EquipmentPosition!
   description: String
   minimumDamage: Int!
   maximumDamage: Int!
@@ -141,23 +128,33 @@ input CreateWeaponTypeInput {
   maxBonusVitality: Int!
 }
 
-enum DamageType {
-  MELEE_PHYSICAL
-  MELEE_MAGIC
-  DISTANCE_PHYSICAL
-  DISTANCE_MAGIC
-}
-
 type Equipment {
   id: ID!
-  handRight: Weapon
-  handLeft: Weapon
-  twoHanded: Weapon
+  handRight: IEquipable
+  handLeft: IEquipable
+  twoHanded: IEquipable
+  head: IEquipable
+  chest: IEquipable
+  shoulders: IEquipable
+  greaves: IEquipable
+  boots: IEquipable
+  gloves: IEquipable
 }
 
-input EquipWeaponInput {
-  characterId: String!
-  weaponId: String!
+enum EquipmentPosition {
+  TWO_HANDED
+  HAND_RIGHT
+  HAND_LEFT
+  HEAD
+  CHEST
+  SHOULDERS
+  GLOVES
+  GREAVES
+  BOOTS
+}
+
+interface IEquipable {
+  position: EquipmentPosition!
 }
 
 interface IItem {
@@ -186,7 +183,6 @@ type Mutation {
   createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
   createArmor(createArmorData: CreateArmorInput!): Armor!
   createArmorType(createArmorTypeData: CreateArmorTypeInput!): ArmorType!
-  equipWeapon(equipWeaponData: EquipWeaponInput!): Character!
   createRace(createRaceData: CreateRaceInput!): Race!
   register(registerData: RegisterInput!): AuthResponse!
 }
@@ -238,14 +234,14 @@ enum UserRole {
   GOD
 }
 
-type Weapon implements IItem {
+type Weapon implements IEquipable & IItem {
+  position: EquipmentPosition!
   id: ID!
   name: String!
   description: String!
   type: WeaponType!
   category: WeaponCategory!
-  damageType: DamageType!
-  position: WeaponPosition!
+  damageType: WeaponDamageType!
   bonusStrength: Int!
   bonusDexterity: Int!
   bonusIntelligence: Int!
@@ -261,18 +257,19 @@ enum WeaponCategory {
   STAFF
 }
 
-enum WeaponPosition {
-  TWO_HANDED
-  HAND_RIGHT
-  HAND_LEFT
+enum WeaponDamageType {
+  MELEE_PHYSICAL
+  MELEE_MAGIC
+  DISTANCE_PHYSICAL
+  DISTANCE_MAGIC
 }
 
 type WeaponType {
   id: ID!
   name: String!
+  position: EquipmentPosition!
   category: WeaponCategory!
-  damageType: DamageType!
-  position: WeaponPosition!
+  damageType: WeaponDamageType!
   description: String
   minimumDamage: Int!
   maximumDamage: Int!

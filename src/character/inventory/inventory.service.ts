@@ -11,7 +11,6 @@ export class InventoryService {
     constructor(private readonly itemRepository: ItemRepository) {}
 
     async addItem(character: Character, item: IItem): Promise<Inventory> {
-        item.inventory = character.inventory;
         return this.itemRepository.addItemIntoInventory(character.inventory, item);
     }
 
