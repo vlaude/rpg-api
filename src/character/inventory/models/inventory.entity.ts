@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, OneToMany, Column } from 'typeorm';
 import { ObjectType, Field, ID, Int } from 'type-graphql';
 import { Armor } from 'src/item/armor/armor/models/armor.entity';
 import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
-import { IItem } from 'src/item/item/models/item.interface';
+import { Item } from 'src/item/item/models/item.entity';
 
 @Entity()
 @ObjectType()
@@ -13,11 +13,11 @@ export class Inventory {
     id: string;
 
     @OneToMany(
-        type => Armor || Weapon,
-        item => item.inventory
+        type => Item,
+        item => item.inventory,
+        { eager: true }
     )
-    @Field(type => IItem)
-    items: IItem[];
+    items: Item[];
 
     @Column({ type: 'int', default: 10 })
     @Field(type => Int)

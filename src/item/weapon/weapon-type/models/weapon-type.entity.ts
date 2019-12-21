@@ -19,7 +19,7 @@ export class WeaponType {
     // TODO Add constraint on position
     @Column({ type: 'enum', enum: EquipmentPosition })
     @Field(type => EquipmentPosition)
-    position: EquipmentPosition;
+    equipmentPosition: EquipmentPosition;
 
     @Column({ type: 'enum', enum: WeaponCategory })
     @Field(type => WeaponCategory)
@@ -75,7 +75,7 @@ export class WeaponType {
 
     @OneToMany(
         type => Weapon,
-        weapon => weapon.type
+        weapon => weapon.weaponType
     )
     instances?: Weapon[];
 }

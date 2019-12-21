@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, ResolveProperty, Parent } from '@nestjs/graphql';
 import { UserInputError } from 'apollo-server-errors';
 import { Equipment } from './models/equipment.entity';
 import { Character } from '../character/models/character.entity';
@@ -9,49 +9,47 @@ import { WeaponService } from 'src/item/weapon/weapon/weapon.service';
 import { EquipArmorInput } from './dto/equip-armor.input';
 import { Logger } from '@nestjs/common';
 import { ArmorService } from 'src/item/armor/armor/armor.service';
+import { EquipEquipmentPieceInput } from './dto/equip-equipment-piece.input';
+import { ItemService } from 'src/item/item/item.service';
+import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
+import { Armor } from 'src/item/armor/armor/models/armor.entity';
+import { Item } from 'src/item/item/models/item.entity';
 
 @Resolver(of => Equipment)
 export class EquipmentResolver {
     constructor(
         private readonly equipmentService: EquipmentService,
         private readonly characterService: CharacterService,
-        private readonly weaponService: WeaponService,
-        private readonly armorService: ArmorService
+        private readonly itemService: ItemService
     ) {}
 
-    // TODO Verification if weapon is in inventory
-    // @Mutation(returns => Character)
-    // async equipWeapon(@Args('equipWeaponData') equipWeaponData: EquipWeaponInput): Promise<Equipment> {
-    //     const character = await this.characterService.findOneById(equipWeaponData.characterId);
-    //     if (!character) {
-    //         throw new UserInputError(`No character found for id ${equipWeaponData.characterId}`);
-    //     }
-    //     const weapon = await this.weaponService.findOneById(equipWeaponData.weaponId);
-    //     if (!weapon) {
-    //         throw new UserInputError(`No weapon found for id ${equipWeaponData.weaponId}`);
-    //     }
-    //     return await this.equipmentService.equipWeapon(character, weapon);
-    // }
+    @Mutation(returns => Equipment)
+    async equipEquipmentPiece(
+        @Args('equipEquipmentPieceData') equipEquipmentPieceData: EquipEquipmentPieceInput
+    ): Promise<Equipment> {
+        const character = await this.characterService.findOneById(equipEquipmentPieceData.characterId);
+        if (!character) {
+            throw new UserInputError(`No character found for id ${equipEquipmentPieceData.characterId}`);
+        }
+        let equipmentPiece = await this.itemService.findOneById(equipEquipmentPieceData.equipmentPieceId);
+        if (!equipmentPiece) {
+            throw new UserInputError(`No item found for id ${equipEquipmentPieceData.equipmentPieceId}`);
+        }
+        if (!equipmentPiece.equipable) {
+            throw new UserInputError(`Item ${equipEquipmentPieceData.equipmentPieceId} is not equipable`);
+        }
 
-    // @Mutation(returns => Equipment, { nullable: true })
-    // async equipArmor(@Args('equipArmorData') equipArmorData: EquipArmorInput) {
-    //     const character = await this.characterService.findOneById(equipArmorData.characterId);
-    //     if (!character) {
-    //         throw new UserInputError(`No character found for id ${equipArmorData.characterId}`);
-    //     }
-    //     const armor = await this.armorService.findOneById(equipArmorData.armorId);
-    //     if (!armor) {
-    //         throw new UserInputError(`No weapon found for id ${equipArmorData.armorId}`);
-    //     }
-    //
-    //     if (character.inventory.id !== armor.inventory?.id) {
-    //         throw new UserInputError(`Armor ${armor.id} is not in the inventory of Character ${character.id}`);
-    //     }
-    //
-    //     if (character.equipment[armor.type.position]) {
-    //         Logger.debug('ya déjà un truc là');
-    //     }
-    //
-    //     return this.equipmentService.equipArmor(character, armor);
-    // }
+        if (equipmentPiece.inventory?.id !== character.inventory.id) {
+            throw new UserInputError(
+                `Item ${equipEquipmentPieceData.equipmentPieceId} is not in character ${character.id} inventory`
+            );
+        }
+
+        return await this.equipmentService.equipEquipmentPiece(character, equipmentPiece);
+    }
+
+    @ResolveProperty(returns => [Item])
+    async equipmentPieces(@Parent() equipment: Equipment) {
+        return this.itemService.findByEquipmentId(equipment.id);
+    }
 }

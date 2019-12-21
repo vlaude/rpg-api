@@ -16,7 +16,7 @@ export class Character {
     @Field()
     name: string;
 
-    // TODO Return calculated Stats with character level and equipment.
+    // TODO Return calculated Stats with character level, class and equipment.
     @Field(type => Int, { nullable: true })
     strength?: number;
 

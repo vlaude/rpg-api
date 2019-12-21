@@ -37,26 +37,26 @@ export class WeaponResolver {
 
     @ResolveProperty(returns => String)
     async name(@Parent() weapon: Weapon) {
-        return weapon.type.name;
+        return weapon.weaponType.name;
     }
 
     @ResolveProperty(returns => String)
     async description(@Parent() weapon: Weapon) {
-        return weapon.type.description;
+        return weapon.weaponType.description;
     }
 
     @ResolveProperty(returns => WeaponCategory)
     async category(@Parent() weapon: Weapon) {
-        return weapon.type.category;
+        return weapon.weaponType.category;
     }
 
     @ResolveProperty(returns => WeaponDamageType)
     async damageType(@Parent() weapon: Weapon) {
-        return weapon.type.damageType;
+        return weapon.weaponType.damageType;
     }
 
     @ResolveProperty(returns => EquipmentPosition)
-    async position(@Parent() weapon: Weapon) {
-        return weapon.type.position;
+    async equipmentPosition(@Parent() weapon: Weapon) {
+        return weapon.weaponType.equipmentPosition;
     }
 }

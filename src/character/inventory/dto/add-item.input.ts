@@ -8,7 +8,4 @@ export class AddItemInput {
 
     @Field()
     itemId: string;
-
-    @Field(type => AddItemType)
-    type: AddItemType;
 }

@@ -27,11 +27,13 @@ export class WeaponService {
         const bonusVitality = generateStat(weaponType.minBonusVitality, weaponType.maxBonusVitality);
 
         const createWeapon = {
-            type: weaponType,
+            weaponType: weaponType,
+            equipmentPosition: weaponType.equipmentPosition,
             bonusStrength,
             bonusDexterity,
             bonusIntelligence,
             bonusVitality,
+            equipable: true,
         };
 
         const weapon = this.weaponRepository.create(createWeapon);

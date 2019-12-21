@@ -28,31 +28,31 @@ export class ArmorResolver {
 
     @ResolveProperty(returns => String)
     async name(@Parent() armor: Armor) {
-        return armor.type.name;
+        return armor.armorType.name;
     }
 
     @ResolveProperty(returns => String)
     async description(@Parent() armor: Armor) {
-        return armor.type.description;
+        return armor.armorType.description;
     }
 
     @ResolveProperty(returns => ArmorCategory)
     async category(@Parent() armor: Armor) {
-        return armor.type.category;
+        return armor.armorType.category;
     }
 
     @ResolveProperty(returns => EquipmentPosition)
-    async position(@Parent() armor: Armor) {
-        return armor.type.position;
+    async equipmentPosition(@Parent() armor: Armor) {
+        return armor.armorType.equipmentPosition;
     }
 
     @ResolveProperty(returns => Number)
     async physicArmor(@Parent() armor: Armor) {
-        return armor.type.physicArmor;
+        return armor.armorType.physicArmor;
     }
 
     @ResolveProperty(returns => Number)
     async magicArmor(@Parent() armor: Armor) {
-        return armor.type.magicArmor;
+        return armor.armorType.magicArmor;
     }
 }
