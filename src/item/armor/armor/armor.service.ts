@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Armor } from './models/armor.entity';
 import { Repository } from 'typeorm';
@@ -14,7 +14,8 @@ export class ArmorService {
     }
 
     async findAll(): Promise<Armor[]> {
-        return this.armorRepository.find();
+        const armors = await this.armorRepository.find();
+        return armors;
     }
 
     async create(armorType: ArmorType): Promise<Armor> {
@@ -24,11 +25,13 @@ export class ArmorService {
         const bonusVitality = generateStat(armorType.minBonusVitality, armorType.maxBonusVitality);
 
         const createArmor = {
-            type: armorType,
+            armorType: armorType,
+            equipmentPosition: armorType.equipmentPosition,
             bonusStrength,
             bonusDexterity,
             bonusIntelligence,
             bonusVitality,
+            equipable: true,
         };
 
         const armor = this.armorRepository.create(createArmor);

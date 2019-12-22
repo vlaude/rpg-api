@@ -1,5 +1,4 @@
 import { InputType, Field } from 'type-graphql';
-import { AddItemType } from './item-type.enum';
 
 @InputType()
 export class AddItemInput {
@@ -8,7 +7,4 @@ export class AddItemInput {
 
     @Field()
     itemId: string;
-
-    @Field(type => AddItemType)
-    type: AddItemType;
 }

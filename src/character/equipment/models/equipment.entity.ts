@@ -1,7 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
 import { Character } from 'src/character/character/models/character.entity';
 import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
+import { Armor } from 'src/item/armor/armor/models/armor.entity';
+import { Item } from 'src/item/item/models/item.entity';
 
 @Entity()
 @ObjectType()
@@ -11,18 +13,11 @@ export class Equipment {
     @Field(type => ID)
     id: string;
 
-    @OneToOne(type => Weapon, { eager: true })
-    @JoinColumn()
-    @Field(type => Weapon, { nullable: true })
-    handRight?: Weapon;
-
-    @OneToOne(type => Weapon, { eager: true })
-    @JoinColumn()
-    @Field(type => Weapon, { nullable: true })
-    handLeft?: Weapon;
-
-    @OneToOne(type => Weapon, { eager: true })
-    @JoinColumn()
-    @Field(type => Weapon, { nullable: true })
-    twoHanded?: Weapon;
+    @OneToMany(
+        type => Item,
+        equipable => equipable.equipment,
+        { eager: true }
+    )
+    @Field(type => [Item])
+    equipmentPieces: Item[];
 }

@@ -5,7 +5,7 @@ import { CreateArmorInput } from './dto/create-armor.input';
 import { ArmorTypeService } from '../armor-type/armor-type.service';
 import { UserInputError } from 'apollo-server-errors';
 import { ArmorCategory } from '../armor-type/models/armor-category.entity';
-import { ArmorPosition } from '../armor-type/models/armor-position.enum';
+import { EquipmentPosition } from 'src/character/equipment/models/equipment-position.enum';
 
 @Resolver(of => Armor)
 export class ArmorResolver {
@@ -28,31 +28,31 @@ export class ArmorResolver {
 
     @ResolveProperty(returns => String)
     async name(@Parent() armor: Armor) {
-        return armor.type.name;
+        return armor.armorType.name;
     }
 
     @ResolveProperty(returns => String)
     async description(@Parent() armor: Armor) {
-        return armor.type.description;
+        return armor.armorType.description;
     }
 
     @ResolveProperty(returns => ArmorCategory)
     async category(@Parent() armor: Armor) {
-        return armor.type.category;
+        return armor.armorType.category;
     }
 
-    @ResolveProperty(returns => ArmorPosition)
-    async position(@Parent() armor: Armor) {
-        return armor.type.position;
+    @ResolveProperty(returns => EquipmentPosition)
+    async equipmentPosition(@Parent() armor: Armor) {
+        return armor.armorType.equipmentPosition;
     }
 
     @ResolveProperty(returns => Number)
     async physicArmor(@Parent() armor: Armor) {
-        return armor.type.physicArmor;
+        return armor.armorType.physicArmor;
     }
 
     @ResolveProperty(returns => Number)
     async magicArmor(@Parent() armor: Armor) {
-        return armor.type.magicArmor;
+        return armor.armorType.magicArmor;
     }
 }

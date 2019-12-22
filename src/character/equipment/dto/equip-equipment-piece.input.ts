@@ -1,10 +1,10 @@
 import { Field, InputType } from 'type-graphql';
 
 @InputType()
-export class EquipWeaponInput {
+export class EquipEquipmentPieceInput {
     @Field()
     characterId: string;
 
     @Field()
-    weaponId: string;
+    equipmentPieceId: string;
 }

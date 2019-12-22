@@ -1,7 +1,7 @@
 import { InputType, Field, Int } from 'type-graphql';
 import { WeaponCategory } from '../models/weapon-category.enum';
-import { DamageType } from '../models/damage-type.enum';
-import { WeaponPostion } from '../models/weapon-position.enum';
+import { WeaponDamageType } from '../models/weapon-damage-type.enum';
+import { EquipmentPosition } from 'src/character/equipment/models/equipment-position.enum';
 
 @InputType()
 export class CreateWeaponTypeInput {
@@ -11,11 +11,11 @@ export class CreateWeaponTypeInput {
     @Field(type => WeaponCategory)
     category: WeaponCategory;
 
-    @Field(type => DamageType)
-    damageType: DamageType;
+    @Field(type => WeaponDamageType)
+    damageType: WeaponDamageType;
 
-    @Field(type => WeaponPostion)
-    position: WeaponPostion;
+    @Field(type => EquipmentPosition)
+    equipmentPosition: EquipmentPosition;
 
     @Field({ nullable: true })
     description?: string;

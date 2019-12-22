@@ -1,31 +1,42 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Character } from '../character/models/character.entity';
-import { Repository } from 'typeorm';
+import { Repository, getConnection, getManager } from 'typeorm';
 import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
-import { WeaponPostion } from 'src/item/weapon/weapon-type/models/weapon-position.enum';
+import { Armor } from 'src/item/armor/armor/models/armor.entity';
+import { Equipment } from './models/equipment.entity';
+import { Item } from 'src/item/item/models/item.entity';
+import { EquipmentPosition } from './models/equipment-position.enum';
 
 @Injectable()
 export class EquipmentService {
     constructor(
-        @InjectRepository(Character)
-        private readonly characterRepository: Repository<Character>
+        @InjectRepository(Item)
+        private readonly itemRepository: Repository<Item>
     ) {}
 
-    // TODO If a weapon is already equiped at the new weapon position, put the old weapon on character's inventory
-    // TODO Return a Equipment promise
-    async equipWeapon(character: Character, weapon: Weapon): Promise<Character> {
-        switch (weapon.type.position) {
-            case WeaponPostion.HAND_LEFT:
-                character.equipment.handLeft = weapon;
-                break;
-            case WeaponPostion.HAND_RIGHT:
-                character.equipment.handRight = weapon;
-                break;
-            case WeaponPostion.TWO_HANDED:
-                character.equipment.twoHanded = weapon;
-                break;
+    async equipEquipmentPiece(character: Character, piece: Item): Promise<Equipment> {
+        // Check if a piece is already equiped at this position
+        const alreadyEquiped = character.equipment.equipmentPieces.find(
+            p => p.equipmentPosition === piece.equipmentPosition
+        );
+
+        // If yes, put the old piece into the character inventory
+        if (alreadyEquiped) {
+            alreadyEquiped.inventory = character.inventory;
+            alreadyEquiped.equipment = null;
         }
-        return this.characterRepository.save(character);
+        piece.equipment = character.equipment;
+        piece.inventory = null;
+
+        // Save both items using transaction
+        const updatedPiece = await getManager().transaction(async transactionalEntityManager => {
+            if (alreadyEquiped) {
+                await this.itemRepository.save(alreadyEquiped);
+            }
+            return await this.itemRepository.save(piece);
+        });
+
+        return updatedPiece.equipment;
     }
 }

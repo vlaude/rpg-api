@@ -16,21 +16,18 @@ export class Character {
     @Field()
     name: string;
 
-    @Column({ type: 'int', default: 10 })
-    @Field(type => Int)
-    strength: number;
+    // TODO Return calculated Stats with character level, class and equipment.
+    @Field(type => Int, { nullable: true })
+    strength?: number;
 
-    @Column({ type: 'int', default: 10 })
-    @Field(type => Int)
-    dexterity: number;
+    @Field(type => Int, { nullable: true })
+    dexterity?: number;
 
-    @Column({ type: 'int', default: 10 })
-    @Field(type => Int)
-    intelligence: number;
+    @Field(type => Int, { nullable: true })
+    intelligence?: number;
 
-    @Column({ type: 'int', default: 100 })
-    @Field(type => Int)
-    vitality: number;
+    @Field(type => Int, { nullable: true })
+    vitality?: number;
 
     @OneToOne(type => Equipment, { cascade: true, eager: true })
     @JoinColumn()
@@ -50,5 +47,5 @@ export class Character {
         type => User,
         user => user.characters
     )
-    owner: User;
+    player: User;
 }

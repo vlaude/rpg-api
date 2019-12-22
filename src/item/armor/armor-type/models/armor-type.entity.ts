@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Field, Int, ObjectType, ID } from 'type-graphql';
-import { ArmorPosition } from './armor-position.enum';
 import { ArmorCategory } from './armor-category.entity';
 import { Armor } from '../../armor/models/armor.entity';
+import { EquipmentPosition } from 'src/character/equipment/models/equipment-position.enum';
 
 @Entity()
 @ObjectType()
@@ -15,13 +15,14 @@ export class ArmorType {
     @Field()
     name: string;
 
+    // TODO Constraint on position
+    @Column({ type: 'enum', enum: EquipmentPosition })
+    @Field(type => EquipmentPosition)
+    equipmentPosition: EquipmentPosition;
+
     @Column({ type: 'enum', enum: ArmorCategory })
     @Field(type => ArmorCategory)
     category: ArmorCategory;
-
-    @Column({ type: 'enum', enum: ArmorPosition })
-    @Field(type => ArmorPosition)
-    position: ArmorPosition;
 
     @Column({ type: 'text', nullable: true })
     @Field({ nullable: true })
@@ -69,7 +70,7 @@ export class ArmorType {
 
     @OneToMany(
         type => Armor,
-        armor => armor.type
+        armor => armor.armorType
     )
     instances?: Armor[];
 }

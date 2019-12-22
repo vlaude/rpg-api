@@ -5,8 +5,8 @@ import { CreateWeaponInput } from './dto/create-weapon.input';
 import { WeaponTypeService } from '../weapon-type/weapon-type.service';
 import { UserInputError } from 'apollo-server-errors';
 import { WeaponCategory } from '../weapon-type/models/weapon-category.enum';
-import { DamageType } from '../weapon-type/models/damage-type.enum';
-import { WeaponPostion } from '../weapon-type/models/weapon-position.enum';
+import { WeaponDamageType } from '../weapon-type/models/weapon-damage-type.enum';
+import { EquipmentPosition } from 'src/character/equipment/models/equipment-position.enum';
 
 @Resolver(of => Weapon)
 export class WeaponResolver {
@@ -37,26 +37,26 @@ export class WeaponResolver {
 
     @ResolveProperty(returns => String)
     async name(@Parent() weapon: Weapon) {
-        return weapon.type.name;
+        return weapon.weaponType.name;
     }
 
     @ResolveProperty(returns => String)
     async description(@Parent() weapon: Weapon) {
-        return weapon.type.description;
+        return weapon.weaponType.description;
     }
 
     @ResolveProperty(returns => WeaponCategory)
     async category(@Parent() weapon: Weapon) {
-        return weapon.type.category;
+        return weapon.weaponType.category;
     }
 
-    @ResolveProperty(returns => DamageType)
+    @ResolveProperty(returns => WeaponDamageType)
     async damageType(@Parent() weapon: Weapon) {
-        return weapon.type.damageType;
+        return weapon.weaponType.damageType;
     }
 
-    @ResolveProperty(returns => WeaponPostion)
-    async position(@Parent() weapon: Weapon) {
-        return weapon.type.position;
+    @ResolveProperty(returns => EquipmentPosition)
+    async equipmentPosition(@Parent() weapon: Weapon) {
+        return weapon.weaponType.equipmentPosition;
     }
 }

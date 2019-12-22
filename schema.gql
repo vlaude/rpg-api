@@ -6,22 +6,16 @@
 input AddItemInput {
   characterId: String!
   itemId: String!
-  type: AddItemType!
 }
 
-enum AddItemType {
-  ITEM
-  ARMOR
-  WEAPON
-}
-
-type Armor implements IItem {
+type Armor implements Item {
   id: ID!
   name: String!
   description: String!
-  type: ArmorType!
+  equipable: Boolean!
+  equipmentPosition: EquipmentPosition!
+  armorType: ArmorType!
   category: ArmorCategory!
-  position: ArmorPosition!
   physicArmor: Int!
   magicArmor: Int!
   bonusStrength: Int!
@@ -36,19 +30,11 @@ enum ArmorCategory {
   HEAVY
 }
 
-enum ArmorPosition {
-  HEAD
-  CHEST
-  GREAVES
-  BOOTS
-  GLOVES
-}
-
 type ArmorType {
   id: ID!
   name: String!
+  equipmentPosition: EquipmentPosition!
   category: ArmorCategory!
-  position: ArmorPosition!
   description: String
   physicArmor: Int!
   magicArmor: Int!
@@ -70,10 +56,10 @@ type AuthResponse {
 type Character {
   id: ID!
   name: String!
-  strength: Int!
-  dexterity: Int!
-  intelligence: Int!
-  vitality: Int!
+  strength: Int
+  dexterity: Int
+  intelligence: Int
+  vitality: Int
   equipment: Equipment!
   inventory: Inventory!
   race: Race!
@@ -86,7 +72,7 @@ input CreateArmorInput {
 input CreateArmorTypeInput {
   name: String!
   category: ArmorCategory!
-  position: ArmorPosition!
+  equipmentPosition: EquipmentPosition!
   description: String
   physicArmor: Int!
   magicArmor: Int!
@@ -102,10 +88,6 @@ input CreateArmorTypeInput {
 
 input CreateCharacterInput {
   name: String!
-  strength: Int
-  dexterity: Int
-  intelligence: Int
-  vitality: Int
   raceId: String!
 }
 
@@ -125,8 +107,8 @@ input CreateWeaponInput {
 input CreateWeaponTypeInput {
   name: String!
   category: WeaponCategory!
-  damageType: DamageType!
-  position: WeaponPosition!
+  damageType: WeaponDamageType!
+  equipmentPosition: EquipmentPosition!
   description: String
   minimumDamage: Int!
   maximumDamage: Int!
@@ -140,36 +122,41 @@ input CreateWeaponTypeInput {
   maxBonusVitality: Int!
 }
 
-enum DamageType {
-  MELEE_PHYSICAL
-  MELEE_MAGIC
-  DISTANCE_PHYSICAL
-  DISTANCE_MAGIC
+input EquipEquipmentPieceInput {
+  characterId: String!
+  equipmentPieceId: String!
 }
 
 type Equipment {
   id: ID!
-  handRight: Weapon
-  handLeft: Weapon
-  twoHanded: Weapon
+  equipmentPieces: [Item!]!
 }
 
-input EquipWeaponInput {
-  characterId: String!
-  weaponId: String!
-}
-
-interface IItem {
-  id: ID!
-  name: String!
-  description: String
+enum EquipmentPosition {
+  TWO_HANDED
+  HAND_RIGHT
+  HAND_LEFT
+  HEAD
+  CHEST
+  SHOULDERS
+  GLOVES
+  GREAVES
+  BOOTS
 }
 
 type Inventory {
   id: ID!
-  items: [IItem!]!
   golds: Int!
   capacity: Int!
+  items: [Item!]!
+}
+
+interface Item {
+  id: ID!
+  name: String!
+  description: String!
+  equipable: Boolean!
+  equipmentPosition: EquipmentPosition
 }
 
 input LoginInput {
@@ -185,7 +172,7 @@ type Mutation {
   createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
   createArmor(createArmorData: CreateArmorInput!): Armor!
   createArmorType(createArmorTypeData: CreateArmorTypeInput!): ArmorType!
-  equipWeapon(equipWeaponData: EquipWeaponInput!): Character!
+  equipEquipmentPiece(equipEquipmentPieceData: EquipEquipmentPieceInput!): Equipment!
   createRace(createRaceData: CreateRaceInput!): Race!
   register(registerData: RegisterInput!): AuthResponse!
 }
@@ -237,14 +224,15 @@ enum UserRole {
   GOD
 }
 
-type Weapon implements IItem {
+type Weapon implements Item {
   id: ID!
   name: String!
   description: String!
-  type: WeaponType!
+  equipable: Boolean!
+  equipmentPosition: EquipmentPosition!
+  weaponType: WeaponType!
   category: WeaponCategory!
-  damageType: DamageType!
-  position: WeaponPosition!
+  damageType: WeaponDamageType!
   bonusStrength: Int!
   bonusDexterity: Int!
   bonusIntelligence: Int!
@@ -260,18 +248,19 @@ enum WeaponCategory {
   STAFF
 }
 
-enum WeaponPosition {
-  TWO_HANDED
-  HAND_RIGHT
-  HAND_LEFT
+enum WeaponDamageType {
+  MELEE_PHYSICAL
+  MELEE_MAGICAL
+  DISTANCE_PHYSICAL
+  DISTANCE_MAGICAL
 }
 
 type WeaponType {
   id: ID!
   name: String!
+  equipmentPosition: EquipmentPosition!
   category: WeaponCategory!
-  damageType: DamageType!
-  position: WeaponPosition!
+  damageType: WeaponDamageType!
   description: String
   minimumDamage: Int!
   maximumDamage: Int!

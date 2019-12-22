@@ -3,20 +3,19 @@ import { Inventory } from './models/inventory.entity';
 import { CharacterService } from '../character/character.service';
 import { AddItemInput } from './dto/add-item.input';
 import { UserInputError } from 'apollo-server-errors';
-import { AddItemType } from './dto/item-type.enum';
 import { InventoryService } from './inventory.service';
 import { WeaponService } from 'src/item/weapon/weapon/weapon.service';
 import { ArmorService } from 'src/item/armor/armor/armor.service';
-import { IItem } from 'src/item/item/models/item.interface';
 import { Logger } from '@nestjs/common';
+import { Item } from 'src/item/item/models/item.entity';
+import { ItemService } from 'src/item/item/item.service';
 
 @Resolver(of => Inventory)
 export class InventoryResolver {
     constructor(
         private readonly inventoryService: InventoryService,
         private readonly characterService: CharacterService,
-        private readonly weaponService: WeaponService,
-        private readonly armorService: ArmorService
+        private readonly itemService: ItemService
     ) {}
 
     @Mutation(returns => Inventory)
@@ -25,22 +24,12 @@ export class InventoryResolver {
         if (!character) {
             throw new UserInputError(`No character found for id ${addItemData.characterId}`);
         }
-
-        // Find item by its type
-        let item: IItem;
-        switch (addItemData.type) {
-            case AddItemType.WEAPON:
-                item = await this.weaponService.findOneById(addItemData.itemId);
-                break;
-            case AddItemType.ARMOR:
-                item = await this.armorService.findOneById(addItemData.itemId);
-                break;
-            default:
-                throw new UserInputError(`This item type is not yet handled`);
-        }
+        const item = await this.itemService.findOneById(addItemData.itemId);
         if (!item) {
-            throw new UserInputError(`No item found for id ${addItemData.itemId} or you passed a wrong type`);
+            throw new UserInputError(`No item found for id ${addItemData.itemId}`);
         }
+
+        // TODO Check if item is in another inventory
 
         // Check if inventory is full
         const itemsAlreadyInInventory = await this.inventoryService.findItemsByInventoryId(character.inventory.id);
@@ -51,7 +40,7 @@ export class InventoryResolver {
         return await this.inventoryService.addItem(character, item);
     }
 
-    @ResolveProperty()
+    @ResolveProperty(returns => [Item])
     async items(@Parent() inventory: Inventory) {
         return await this.inventoryService.findItemsByInventoryId(inventory.id);
     }

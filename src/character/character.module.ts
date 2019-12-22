@@ -16,10 +16,12 @@ import { EquipmentService } from './equipment/equipment.service';
 import { RaceResolver } from './race/race.resolver';
 import { RaceService } from './race/race.service';
 import { Race } from './race/models/race.entity';
+import { Item } from 'src/item/item/models/item.entity';
+import { ItemService } from 'src/item/item/item.service';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Character, Inventory, Weapon, Armor, Race]),
+        TypeOrmModule.forFeature([Character, Inventory, Item, Weapon, Armor, Race]),
         WeaponModule,
         ArmorModule,
         ItemModule,
@@ -29,6 +31,7 @@ import { Race } from './race/models/race.entity';
         CharacterService,
         InventoryResolver,
         InventoryService,
+        ItemService,
         EquipmentResolver,
         EquipmentService,
         RaceResolver,

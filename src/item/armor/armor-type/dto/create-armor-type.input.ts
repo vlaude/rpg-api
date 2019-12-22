@@ -1,6 +1,6 @@
 import { Field, Int, InputType } from 'type-graphql';
-import { ArmorPosition } from '../models/armor-position.enum';
 import { ArmorCategory } from '../models/armor-category.entity';
+import { EquipmentPosition } from 'src/character/equipment/models/equipment-position.enum';
 
 @InputType()
 export class CreateArmorTypeInput {
@@ -10,8 +10,8 @@ export class CreateArmorTypeInput {
     @Field(type => ArmorCategory)
     category: ArmorCategory;
 
-    @Field(type => ArmorPosition)
-    position: ArmorPosition;
+    @Field(type => EquipmentPosition)
+    equipmentPosition: EquipmentPosition;
 
     @Field({ nullable: true })
     description?: string;
