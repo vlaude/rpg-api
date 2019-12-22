@@ -3,7 +3,6 @@ import { Inventory } from './models/inventory.entity';
 import { CharacterService } from '../character/character.service';
 import { AddItemInput } from './dto/add-item.input';
 import { UserInputError } from 'apollo-server-errors';
-import { AddItemType } from './dto/item-type.enum';
 import { InventoryService } from './inventory.service';
 import { WeaponService } from 'src/item/weapon/weapon/weapon.service';
 import { ArmorService } from 'src/item/armor/armor/armor.service';

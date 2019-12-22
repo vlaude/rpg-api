@@ -24,12 +24,15 @@ export abstract class Item {
     equipable: boolean;
 
     // TODO Add constraint to check if item is equipable
+    // Only for equipable items
     @ManyToOne(
         type => Equipment,
         equipment => equipment.equipmentPieces
     )
     equipment: Equipment;
 
+    // TODO Add constraint to check if item is equipable
+    // Only for equipable items
     @Column({ type: 'enum', enum: EquipmentPosition, nullable: true })
     @Field(type => EquipmentPosition, { nullable: true })
     equipmentPosition: EquipmentPosition;

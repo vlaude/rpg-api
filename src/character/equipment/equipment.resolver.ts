@@ -2,11 +2,9 @@ import { Resolver, Mutation, Args, ResolveProperty, Parent } from '@nestjs/graph
 import { UserInputError } from 'apollo-server-errors';
 import { Equipment } from './models/equipment.entity';
 import { Character } from '../character/models/character.entity';
-import { EquipWeaponInput } from './dto/equip-weapon.input';
 import { EquipmentService } from './equipment.service';
 import { CharacterService } from '../character/character.service';
 import { WeaponService } from 'src/item/weapon/weapon/weapon.service';
-import { EquipArmorInput } from './dto/equip-armor.input';
 import { Logger } from '@nestjs/common';
 import { ArmorService } from 'src/item/armor/armor/armor.service';
 import { EquipEquipmentPieceInput } from './dto/equip-equipment-piece.input';

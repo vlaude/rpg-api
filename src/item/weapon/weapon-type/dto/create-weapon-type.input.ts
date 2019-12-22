@@ -15,7 +15,7 @@ export class CreateWeaponTypeInput {
     damageType: WeaponDamageType;
 
     @Field(type => EquipmentPosition)
-    position: EquipmentPosition;
+    equipmentPosition: EquipmentPosition;
 
     @Field({ nullable: true })
     description?: string;

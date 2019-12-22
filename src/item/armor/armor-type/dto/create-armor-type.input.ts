@@ -11,7 +11,7 @@ export class CreateArmorTypeInput {
     category: ArmorCategory;
 
     @Field(type => EquipmentPosition)
-    position: EquipmentPosition;
+    equipmentPosition: EquipmentPosition;
 
     @Field({ nullable: true })
     description?: string;

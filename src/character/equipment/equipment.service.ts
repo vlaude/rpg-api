@@ -31,7 +31,9 @@ export class EquipmentService {
 
         // Save both items using transaction
         const updatedPiece = await getManager().transaction(async transactionalEntityManager => {
-            await this.itemRepository.save(alreadyEquiped);
+            if (alreadyEquiped) {
+                await this.itemRepository.save(alreadyEquiped);
+            }
             return await this.itemRepository.save(piece);
         });
 

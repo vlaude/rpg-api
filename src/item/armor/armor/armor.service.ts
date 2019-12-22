@@ -15,7 +15,6 @@ export class ArmorService {
 
     async findAll(): Promise<Armor[]> {
         const armors = await this.armorRepository.find();
-        Logger.debug(armors);
         return armors;
     }
 

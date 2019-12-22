@@ -72,7 +72,7 @@ input CreateArmorInput {
 input CreateArmorTypeInput {
   name: String!
   category: ArmorCategory!
-  position: EquipmentPosition!
+  equipmentPosition: EquipmentPosition!
   description: String
   physicArmor: Int!
   magicArmor: Int!
@@ -108,7 +108,7 @@ input CreateWeaponTypeInput {
   name: String!
   category: WeaponCategory!
   damageType: WeaponDamageType!
-  position: EquipmentPosition!
+  equipmentPosition: EquipmentPosition!
   description: String
   minimumDamage: Int!
   maximumDamage: Int!
@@ -250,9 +250,9 @@ enum WeaponCategory {
 
 enum WeaponDamageType {
   MELEE_PHYSICAL
-  MELEE_MAGIC
+  MELEE_MAGICAL
   DISTANCE_PHYSICAL
-  DISTANCE_MAGIC
+  DISTANCE_MAGICAL
 }
 
 type WeaponType {
