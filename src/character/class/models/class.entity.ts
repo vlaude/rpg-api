@@ -1,0 +1,41 @@
+import { Race } from 'src/character/race/models/race.entity';
+import { WeaponCategoryBonus } from './weapon-category-bonus.embedded';
+import { StatisticBonus } from './statistic-bonus.embedded';
+import { Passive } from './passive.embedded';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { ObjectType, Field, ID } from 'type-graphql';
+import { Insensibility } from 'src/character/race/models/insensibility.embedded';
+
+@Entity()
+@ObjectType()
+export class Class {
+    @PrimaryGeneratedColumn()
+    @Field(type => ID)
+    id: string;
+
+    @Column({ unique: true })
+    @Field()
+    name: string;
+
+    @Column({ type: 'text', nullable: true })
+    @Field({ nullable: true })
+    description?: string;
+
+    @Column(type => WeaponCategoryBonus)
+    @Field(type => WeaponCategoryBonus, { nullable: true })
+    weaponCategoryBonus?: WeaponCategoryBonus;
+
+    @Column(type => StatisticBonus)
+    @Field(type => StatisticBonus, { nullable: true })
+    statBonus?: StatisticBonus;
+
+    @Column(type => Insensibility)
+    @Field(type => Insensibility, { nullable: true })
+    insensibility: Insensibility;
+
+    @Column(type => Passive)
+    @Field(type => Passive, { nullable: true })
+    passive?: Passive;
+
+    racesCompatible: Race[];
+}
