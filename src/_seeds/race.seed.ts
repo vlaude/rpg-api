@@ -1,0 +1,42 @@
+export const RaceSeed = [
+    {
+        name: 'Giant',
+        description: 'For big boys.',
+        base_strength: 15,
+        base_dexterity: 5,
+        base_intelligence: 5,
+        base_vitality: 17,
+    },
+    {
+        name: 'Orc',
+        description: 'For green boys.',
+        base_strength: 17,
+        base_dexterity: 5,
+        base_intelligence: 5,
+        base_vitality: 15,
+    },
+    {
+        name: 'Undead',
+        description: 'For boneless.',
+        base_strength: 8,
+        base_dexterity: 10,
+        base_intelligence: 13,
+        base_vitality: 10,
+    },
+    {
+        name: 'Human',
+        description: 'For classic boys.',
+        base_strength: 8,
+        base_dexterity: 8,
+        base_intelligence: 8,
+        base_vitality: 10,
+    },
+    {
+        name: 'Dwarf',
+        description: 'For little boys.',
+        base_strength: 12,
+        base_dexterity: 4,
+        base_intelligence: 7,
+        base_vitality: 15,
+    },
+];
