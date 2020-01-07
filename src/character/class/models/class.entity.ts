@@ -22,19 +22,19 @@ export class Class {
     description?: string;
 
     @Column(type => WeaponCategoryBonus)
-    @Field(type => WeaponCategoryBonus, { nullable: true })
+    @Field(type => WeaponCategoryBonus)
     weaponCategoryBonus?: WeaponCategoryBonus;
 
     @Column(type => StatisticBonus)
-    @Field(type => StatisticBonus, { nullable: true })
+    @Field(type => StatisticBonus)
     statBonus?: StatisticBonus;
 
     @Column(type => Insensibility)
-    @Field(type => Insensibility, { nullable: true })
+    @Field(type => Insensibility)
     insensibility: Insensibility;
 
     @Column(type => Passive)
-    @Field(type => Passive, { nullable: true })
+    @Field(type => Passive)
     passive?: Passive;
 
     racesCompatible: Race[];

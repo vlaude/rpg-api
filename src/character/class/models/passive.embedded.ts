@@ -5,10 +5,10 @@ import { Column } from 'typeorm';
 @InputType('PassiveInput')
 export class Passive {
     @Column({ nullable: true })
-    @Field()
+    @Field({ nullable: true })
     name: string;
 
     @Column({ type: 'text', nullable: true })
-    @Field()
+    @Field({ nullable: true })
     description: string;
 }

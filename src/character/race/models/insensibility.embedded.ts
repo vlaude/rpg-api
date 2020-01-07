@@ -6,6 +6,6 @@ import { Column } from 'typeorm';
 @InputType('InsensibilityInput')
 export class Insensibility {
     @Column({ type: 'enum', enum: EffectType, nullable: true })
-    @Field(type => EffectType)
+    @Field(type => EffectType, { nullable: true })
     effectType: EffectType;
 }
