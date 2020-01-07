@@ -69,10 +69,10 @@ type Class {
   id: ID!
   name: String!
   description: String
-  weaponCategoryBonus: WeaponCategoryBonus
-  statBonus: StatisticBonus
-  insensibility: Insensibility
-  passive: Passive
+  weaponCategoryBonus: WeaponCategoryBonus!
+  statBonus: StatisticBonus!
+  insensibility: Insensibility!
+  passive: Passive!
 }
 
 input CreateArmorInput {
@@ -170,11 +170,11 @@ enum EquipmentPosition {
 }
 
 type Insensibility {
-  effectType: EffectType!
+  effectType: EffectType
 }
 
 input InsensibilityInput {
-  effectType: EffectType!
+  effectType: EffectType
 }
 
 type Inventory {
@@ -212,13 +212,13 @@ type Mutation {
 }
 
 type Passive {
-  name: String!
-  description: String!
+  name: String
+  description: String
 }
 
 input PassiveInput {
-  name: String!
-  description: String!
+  name: String
+  description: String
 }
 
 type Query {
@@ -230,6 +230,8 @@ type Query {
   armors: [Armor!]!
   armorTypes: [ArmorType!]!
   races: [Race!]!
+  classes: [Class!]!
+  class(id: String!): Class!
   login(loginData: LoginInput!): AuthResponse!
 }
 
@@ -257,13 +259,13 @@ enum Statistic {
 }
 
 type StatisticBonus {
-  stat: Statistic!
-  percentageBonus: Float!
+  stat: Statistic
+  percentageBonus: Float
 }
 
 input StatisticBonusInput {
-  stat: Statistic!
-  percentageBonus: Float!
+  stat: Statistic
+  percentageBonus: Float
 }
 
 input UpdateCharacterInput {
@@ -311,13 +313,13 @@ enum WeaponCategory {
 }
 
 type WeaponCategoryBonus {
-  weaponCategory: WeaponCategory!
-  bonusDamage: Float!
+  weaponCategory: WeaponCategory
+  bonusDamage: Float
 }
 
 input WeaponCategoryBonusInput {
-  weaponCategory: WeaponCategory!
-  bonusDamage: Float!
+  weaponCategory: WeaponCategory
+  bonusDamage: Float
 }
 
 enum WeaponDamageType {

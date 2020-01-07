@@ -15,6 +15,10 @@ export class ClassService {
         return this.classRepository.find();
     }
 
+    async findOneById(id: string): Promise<Class> {
+        return this.classRepository.findOne(id);
+    }
+
     async findByName(name: string): Promise<Class> {
         return this.classRepository.findOne({ where: { name } });
     }
