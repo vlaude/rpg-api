@@ -23,4 +23,7 @@ export class CreateClassInput {
 
     @Field(type => Passive, { nullable: true })
     passive?: Passive;
+
+    @Field(type => [String])
+    compatibleRacesIds: string[];
 }

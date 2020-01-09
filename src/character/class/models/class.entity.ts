@@ -2,7 +2,7 @@ import { Race } from 'src/character/race/models/race.entity';
 import { WeaponCategoryBonus } from './weapon-category-bonus.embedded';
 import { StatisticBonus } from './statistic-bonus.embedded';
 import { Passive } from './passive.embedded';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
 import { Insensibility } from 'src/character/race/models/insensibility.embedded';
 
@@ -37,5 +37,10 @@ export class Class {
     @Field(type => Passive)
     passive?: Passive;
 
-    racesCompatible: Race[];
+    @ManyToMany(
+        type => Race,
+        race => race.availableClasses
+    )
+    @Field(type => [Race])
+    compatibleRaces: Race[];
 }
