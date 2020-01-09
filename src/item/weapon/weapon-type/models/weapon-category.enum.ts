@@ -7,6 +7,7 @@ export enum WeaponCategory {
     BOW = 'bow',
     WAND = 'wand',
     STAFF = 'staff',
+    SHIELD = 'shield',
 }
 
 registerEnumType(WeaponCategory, { name: 'WeaponCategory' });

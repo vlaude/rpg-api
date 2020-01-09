@@ -65,6 +65,17 @@ type Character {
   race: Race!
 }
 
+type Class {
+  id: ID!
+  name: String!
+  description: String
+  weaponCategoryBonus: WeaponCategoryBonus!
+  statBonus: StatisticBonus!
+  insensibility: Insensibility!
+  passive: Passive!
+  compatibleRaces: [Race!]!
+}
+
 input CreateArmorInput {
   armorTypeId: String!
 }
@@ -89,6 +100,16 @@ input CreateArmorTypeInput {
 input CreateCharacterInput {
   name: String!
   raceId: String!
+}
+
+input CreateClassInput {
+  name: String!
+  description: String
+  weaponCategoryBonus: WeaponCategoryBonusInput
+  statBonus: StatisticBonusInput
+  insensibility: InsensibilityInput
+  passive: PassiveInput
+  compatibleRacesIds: [String!]!
 }
 
 input CreateRaceInput {
@@ -122,6 +143,12 @@ input CreateWeaponTypeInput {
   maxBonusVitality: Int!
 }
 
+enum EffectType {
+  MADNESS
+  BLEEDING
+  POISON
+}
+
 input EquipEquipmentPieceInput {
   characterId: String!
   equipmentPieceId: String!
@@ -142,6 +169,14 @@ enum EquipmentPosition {
   GLOVES
   GREAVES
   BOOTS
+}
+
+type Insensibility {
+  effectType: EffectType
+}
+
+input InsensibilityInput {
+  effectType: EffectType
 }
 
 type Inventory {
@@ -174,7 +209,18 @@ type Mutation {
   createArmorType(createArmorTypeData: CreateArmorTypeInput!): ArmorType!
   equipEquipmentPiece(equipEquipmentPieceData: EquipEquipmentPieceInput!): Equipment!
   createRace(createRaceData: CreateRaceInput!): Race!
+  createClass(createClassData: CreateClassInput!): Class!
   register(registerData: RegisterInput!): AuthResponse!
+}
+
+type Passive {
+  name: String
+  description: String
+}
+
+input PassiveInput {
+  name: String
+  description: String
 }
 
 type Query {
@@ -186,6 +232,8 @@ type Query {
   armors: [Armor!]!
   armorTypes: [ArmorType!]!
   races: [Race!]!
+  classes: [Class!]!
+  class(id: String!): Class!
   login(loginData: LoginInput!): AuthResponse!
 }
 
@@ -203,6 +251,23 @@ input RegisterInput {
   username: String!
   password: String!
   email: String
+}
+
+enum Statistic {
+  STRENGTH
+  DEXTERITY
+  INTELLIGENCE
+  VITALITY
+}
+
+type StatisticBonus {
+  stat: Statistic
+  percentageBonus: Float
+}
+
+input StatisticBonusInput {
+  stat: Statistic
+  percentageBonus: Float
 }
 
 input UpdateCharacterInput {
@@ -246,6 +311,17 @@ enum WeaponCategory {
   BOW
   WAND
   STAFF
+  SHIELD
+}
+
+type WeaponCategoryBonus {
+  weaponCategory: WeaponCategory
+  bonusDamage: Float
+}
+
+input WeaponCategoryBonusInput {
+  weaponCategory: WeaponCategory
+  bonusDamage: Float
 }
 
 enum WeaponDamageType {
