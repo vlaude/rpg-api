@@ -121,6 +121,10 @@ input CreateRaceInput {
   base_vitality: Int!
 }
 
+input CreateSkillInput {
+  staminaCost: Int!
+}
+
 input CreateWeaponInput {
   weaponTypeId: String!
 }
