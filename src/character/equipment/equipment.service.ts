@@ -1,12 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Character } from '../character/models/character.entity';
-import { Repository, getConnection, getManager } from 'typeorm';
-import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
-import { Armor } from 'src/item/armor/armor/models/armor.entity';
+import { Repository, getManager } from 'typeorm';
 import { Equipment } from './models/equipment.entity';
 import { Item } from 'src/item/item/models/item.entity';
-import { EquipmentPosition } from './models/equipment-position.enum';
 
 @Injectable()
 export class EquipmentService {
