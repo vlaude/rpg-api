@@ -21,10 +21,11 @@ import { ItemService } from 'src/item/item/item.service';
 import { ClassResolver } from './class/class.resolver';
 import { ClassService } from './class/class.service';
 import { Class } from './class/models/class.entity';
+import { Equipment } from './equipment/models/equipment.entity';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([Character, Inventory, Item, Weapon, Armor, Race, Class]),
+        TypeOrmModule.forFeature([Character, Equipment, Inventory, Item, Weapon, Armor, Race, Class]),
         WeaponModule,
         ArmorModule,
         ItemModule,

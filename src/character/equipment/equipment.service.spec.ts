@@ -1,21 +1,20 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { EquipmentService } from './equipment.service';
-import { Item } from 'src/item/item/models/item.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { NotImplementedException, Logger } from '@nestjs/common';
 import { EquipmentPosition } from './models/equipment-position.enum';
+import { Equipment } from './models/equipment.entity';
 
 describe('EquipmentService', () => {
     let service: EquipmentService;
-    let mockItemRepository = jest.fn();
+    let mockEquipmentRepository = jest.fn();
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
             providers: [
                 EquipmentService,
                 {
-                    provide: getRepositoryToken(Item),
-                    useValue: mockItemRepository,
+                    provide: getRepositoryToken(Equipment),
+                    useValue: mockEquipmentRepository,
                 },
             ],
         }).compile();
@@ -28,21 +27,16 @@ describe('EquipmentService', () => {
     });
 
     describe('equipEquipmentPiece', () => {
-        let mockOldPiece;
         let mockNewPiece;
         let mockCharacter;
 
         beforeEach(() => {
-            mockOldPiece = {
-                equipment: {
-                    id: 1,
-                },
-                equipmentPosition: EquipmentPosition.CHEST,
-            };
             mockNewPiece = {
+                id: 1,
                 inventory: {
                     id: 1,
                 },
+                equipable: true,
                 equipmentPosition: EquipmentPosition.CHEST,
             };
             mockCharacter = {
@@ -51,25 +45,52 @@ describe('EquipmentService', () => {
                 },
                 equipment: {
                     id: 1,
-                    equipmentPieces: [mockOldPiece],
+                    equipmentPieces: [],
                 },
             };
         });
 
-        it('should equip the new piece properly', async () => {
-            service.equipEquipmentPiece(mockCharacter, mockNewPiece);
-
-            expect(mockNewPiece.inventory).toBeNull();
-            expect(mockNewPiece.equipment.id).toBe(1);
-            expect(mockOldPiece.inventory.id).toBe(1);
-            expect(mockOldPiece.equipment).toBeNull();
+        it('should add the new piece in the equipment', async () => {
+            let equipment = await service.equipEquipmentPiece(mockCharacter, mockNewPiece);
+            let newEquipedPiece = equipment.equipmentPieces.find(e => e.id === mockNewPiece.id);
+            expect(newEquipedPiece).toBeTruthy();
         });
 
-        it('should not unequip the pieces on other positions', () => {
-            mockNewPiece.equipmentPosition = EquipmentPosition.HEAD;
-            service.equipEquipmentPiece(mockCharacter, mockNewPiece);
-            expect(mockNewPiece.equipment.id).toBe(1);
-            expect(mockOldPiece.equipment.id).toBe(1);
+        it('should throw an error if the new piece is not equipable', async () => {
+            mockNewPiece.equipable = false;
+            let error;
+            try {
+                await service.equipEquipmentPiece(mockCharacter, mockNewPiece);
+            } catch (err) {
+                error = err;
+                expect(error).toBeTruthy();
+            }
+        });
+
+        it('should throw an error if the new piece is not in the character inventory', async () => {
+            mockNewPiece.inventory.id = 2;
+            let error;
+            try {
+                await service.equipEquipmentPiece(mockCharacter, mockNewPiece);
+            } catch (err) {
+                error = err;
+                expect(error).toBeTruthy();
+            }
+        });
+
+        it('should throw an error if another equipment piece is already equiped at the same position', async () => {
+            mockCharacter.equipment.equipmentPieces.push({
+                id: 2,
+                equipmentPosition: EquipmentPosition.CHEST,
+            });
+
+            let error;
+            try {
+                await service.equipEquipmentPiece(mockCharacter, mockNewPiece);
+            } catch (err) {
+                error = err;
+                expect(error).toBeTruthy();
+            }
         });
     });
 });

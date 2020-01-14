@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 export class ItemService {
     constructor(@InjectRepository(Item) private readonly itemRepository: Repository<Item>) {}
 
+    // TODO Create specific function to return inventory and replace other usages
     async findOneById(id: string): Promise<Item> {
         return this.itemRepository.findOne({ where: { id }, relations: ['inventory'] });
     }
