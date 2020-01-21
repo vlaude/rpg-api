@@ -7,42 +7,42 @@ export class CreateArmorTypeInput {
     @Field()
     name: string;
 
-    @Field(type => ArmorCategory)
+    @Field(() => ArmorCategory)
     category: ArmorCategory;
 
-    @Field(type => EquipmentPosition)
+    @Field(() => EquipmentPosition)
     equipmentPosition: EquipmentPosition;
 
     @Field({ nullable: true })
     description?: string;
 
-    @Field(type => Int)
+    @Field(() => Int)
     physicArmor: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     magicArmor: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     minBonusStrength: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     maxBonusStrength: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     minBonusDexterity: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     maxBonusDexterity: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     minBonusIntelligence: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     maxBonusIntelligence: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     minBonusVitality: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     maxBonusVitality: number;
 }

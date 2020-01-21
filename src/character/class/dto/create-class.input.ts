@@ -12,18 +12,18 @@ export class CreateClassInput {
     @Field({ nullable: true })
     description?: string;
 
-    @Field(type => WeaponCategoryBonus, { nullable: true })
+    @Field(() => WeaponCategoryBonus, { nullable: true })
     weaponCategoryBonus?: WeaponCategoryBonus;
 
-    @Field(type => StatisticBonus, { nullable: true })
+    @Field(() => StatisticBonus, { nullable: true })
     statBonus?: StatisticBonus;
 
-    @Field(type => Insensibility, { nullable: true })
+    @Field(() => Insensibility, { nullable: true })
     insensibility?: Insensibility;
 
-    @Field(type => Passive, { nullable: true })
+    @Field(() => Passive, { nullable: true })
     passive?: Passive;
 
-    @Field(type => [String])
+    @Field(() => [String])
     compatibleRacesIds: string[];
 }

@@ -4,13 +4,10 @@ import { CharacterService } from '../character/character.service';
 import { AddItemInput } from './dto/add-item.input';
 import { UserInputError } from 'apollo-server-errors';
 import { InventoryService } from './inventory.service';
-import { WeaponService } from 'src/item/weapon/weapon/weapon.service';
-import { ArmorService } from 'src/item/armor/armor/armor.service';
-import { Logger } from '@nestjs/common';
 import { Item } from 'src/item/item/models/item.entity';
 import { ItemService } from 'src/item/item/item.service';
 
-@Resolver(of => Inventory)
+@Resolver(() => Inventory)
 export class InventoryResolver {
     constructor(
         private readonly inventoryService: InventoryService,
@@ -18,7 +15,7 @@ export class InventoryResolver {
         private readonly itemService: ItemService
     ) {}
 
-    @Mutation(returns => Inventory)
+    @Mutation(() => Inventory)
     async addItem(@Args('addItemData') addItemData: AddItemInput): Promise<Inventory> {
         const character = await this.characterService.findOneById(addItemData.characterId);
         if (!character) {
@@ -40,7 +37,7 @@ export class InventoryResolver {
         return await this.inventoryService.addItem(character, item);
     }
 
-    @ResolveProperty(returns => [Item])
+    @ResolveProperty(() => [Item])
     async items(@Parent() inventory: Inventory) {
         return await this.inventoryService.findItemsByInventoryId(inventory.id);
     }

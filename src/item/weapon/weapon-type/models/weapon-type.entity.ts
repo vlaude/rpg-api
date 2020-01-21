@@ -9,7 +9,7 @@ import { WeaponDamageType } from './weapon-damage-type.enum';
 @ObjectType()
 export class WeaponType {
     @PrimaryGeneratedColumn()
-    @Field(type => ID)
+    @Field(() => ID)
     id: string;
 
     @Column({ unique: true })
@@ -18,15 +18,15 @@ export class WeaponType {
 
     // TODO Add constraint on position
     @Column({ type: 'enum', enum: EquipmentPosition })
-    @Field(type => EquipmentPosition)
+    @Field(() => EquipmentPosition)
     equipmentPosition: EquipmentPosition;
 
     @Column({ type: 'enum', enum: WeaponCategory })
-    @Field(type => WeaponCategory)
+    @Field(() => WeaponCategory)
     category: WeaponCategory;
 
     @Column({ type: 'enum', enum: WeaponDamageType })
-    @Field(type => WeaponDamageType)
+    @Field(() => WeaponDamageType)
     damageType: WeaponDamageType;
 
     @Column({ type: 'text', nullable: true })
@@ -34,47 +34,47 @@ export class WeaponType {
     description?: string;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     minimumDamage: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     maximumDamage: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     minBonusStrength: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     maxBonusStrength: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     minBonusDexterity: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     maxBonusDexterity: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     minBonusIntelligence: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     maxBonusIntelligence: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     minBonusVitality: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     maxBonusVitality: number;
 
     @OneToMany(
-        type => Weapon,
+        () => Weapon,
         weapon => weapon.weaponType
     )
     instances?: Weapon[];

@@ -2,7 +2,7 @@ import { Race } from 'src/character/race/models/race.entity';
 import { WeaponCategoryBonus } from './weapon-category-bonus.embedded';
 import { StatisticBonus } from './statistic-bonus.embedded';
 import { Passive } from './passive.embedded';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
 import { Insensibility } from 'src/character/race/models/insensibility.embedded';
 
@@ -10,7 +10,7 @@ import { Insensibility } from 'src/character/race/models/insensibility.embedded'
 @ObjectType()
 export class Class {
     @PrimaryGeneratedColumn()
-    @Field(type => ID)
+    @Field(() => ID)
     id: string;
 
     @Column({ unique: true })
@@ -21,26 +21,26 @@ export class Class {
     @Field({ nullable: true })
     description?: string;
 
-    @Column(type => WeaponCategoryBonus)
-    @Field(type => WeaponCategoryBonus)
+    @Column(() => WeaponCategoryBonus)
+    @Field(() => WeaponCategoryBonus)
     weaponCategoryBonus?: WeaponCategoryBonus;
 
-    @Column(type => StatisticBonus)
-    @Field(type => StatisticBonus)
+    @Column(() => StatisticBonus)
+    @Field(() => StatisticBonus)
     statBonus?: StatisticBonus;
 
-    @Column(type => Insensibility)
-    @Field(type => Insensibility)
+    @Column(() => Insensibility)
+    @Field(() => Insensibility)
     insensibility: Insensibility;
 
-    @Column(type => Passive)
-    @Field(type => Passive)
+    @Column(() => Passive)
+    @Field(() => Passive)
     passive?: Passive;
 
     @ManyToMany(
-        type => Race,
+        () => Race,
         race => race.availableClasses
     )
-    @Field(type => [Race])
+    @Field(() => [Race])
     compatibleRaces: Race[];
 }

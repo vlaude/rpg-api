@@ -1,23 +1,16 @@
-import { Resolver, Query, Mutation, Args, ResolveProperty, Parent } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UserInputError } from 'apollo-server-errors';
 import { CharacterService } from './character.service';
 import { CreateCharacterInput } from './dto/create-character.input';
 import { UpdateCharacterInput } from './dto/update-character-input';
 import { Character } from './models/character.entity';
-import { WeaponService } from 'src/item/weapon/weapon/weapon.service';
-import { AuthGuard } from '@nestjs/passport';
-import { UseGuards } from '@nestjs/common';
 import { RaceService } from '../race/race.service';
 
-@Resolver(of => Character)
+@Resolver(() => Character)
 export class CharacterResolver {
-    constructor(
-        private readonly characterService: CharacterService,
-        private readonly weaponService: WeaponService,
-        private readonly raceService: RaceService
-    ) {}
+    constructor(private readonly characterService: CharacterService, private readonly raceService: RaceService) {}
 
-    @Query(returns => Character, { name: 'character' })
+    @Query(() => Character, { name: 'character' })
     async getCharacterById(@Args('id') id: string): Promise<Character> {
         const character = await this.characterService.findOneById(id);
         if (!character) {
@@ -26,12 +19,12 @@ export class CharacterResolver {
         return character;
     }
 
-    @Query(returns => [Character], { name: 'characters' })
+    @Query(() => [Character], { name: 'characters' })
     async getCharacters(): Promise<Character[]> {
         return this.characterService.findAll();
     }
 
-    @Mutation(returns => Character)
+    @Mutation(() => Character)
     async createCharacter(@Args('createCharacterData') createCharacterData: CreateCharacterInput): Promise<Character> {
         const character = await this.characterService.findOneByName(createCharacterData.name);
         if (character) {
@@ -44,7 +37,7 @@ export class CharacterResolver {
         return await this.characterService.create(createCharacterData);
     }
 
-    @Mutation(returns => Character)
+    @Mutation(() => Character)
     async updateCharacter(@Args('updateCharacterData') updateCharacterData: UpdateCharacterInput): Promise<Character> {
         const characterById = await this.characterService.findOneById(updateCharacterData.id);
         if (!characterById) {

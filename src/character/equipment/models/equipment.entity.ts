@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { ObjectType, Field, ID } from 'type-graphql';
 import { Item } from 'src/item/item/models/item.entity';
 
@@ -7,14 +7,14 @@ import { Item } from 'src/item/item/models/item.entity';
 // TODO Delete cascade with Character
 export class Equipment {
     @PrimaryGeneratedColumn()
-    @Field(type => ID)
+    @Field(() => ID)
     id: string;
 
     @OneToMany(
-        type => Item,
+        () => Item,
         equipable => equipable.equipment,
         { eager: true }
     )
-    @Field(type => [Item])
+    @Field(() => [Item])
     equipmentPieces: Item[];
 }

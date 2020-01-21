@@ -7,16 +7,16 @@ import { UserInputError } from 'apollo-server-errors';
 import { ArmorCategory } from '../armor-type/models/armor-category.entity';
 import { EquipmentPosition } from 'src/character/equipment/models/equipment-position.enum';
 
-@Resolver(of => Armor)
+@Resolver(() => Armor)
 export class ArmorResolver {
     constructor(private readonly armorService: ArmorService, private readonly armorTypeService: ArmorTypeService) {}
 
-    @Query(returns => [Armor], { name: 'armors' })
+    @Query(() => [Armor], { name: 'armors' })
     async getArmors(): Promise<Armor[]> {
         return await this.armorService.findAll();
     }
 
-    @Mutation(returns => Armor)
+    @Mutation(() => Armor)
     async createArmor(@Args('createArmorData') createArmorData: CreateArmorInput): Promise<Armor> {
         const armorType = await this.armorTypeService.findOneById(createArmorData.armorTypeId);
         if (!armorType) {
@@ -26,32 +26,32 @@ export class ArmorResolver {
         return this.armorService.create(armorType);
     }
 
-    @ResolveProperty(returns => String)
+    @ResolveProperty(() => String)
     async name(@Parent() armor: Armor) {
         return armor.armorType.name;
     }
 
-    @ResolveProperty(returns => String)
+    @ResolveProperty(() => String)
     async description(@Parent() armor: Armor) {
         return armor.armorType.description;
     }
 
-    @ResolveProperty(returns => ArmorCategory)
+    @ResolveProperty(() => ArmorCategory)
     async category(@Parent() armor: Armor) {
         return armor.armorType.category;
     }
 
-    @ResolveProperty(returns => EquipmentPosition)
+    @ResolveProperty(() => EquipmentPosition)
     async equipmentPosition(@Parent() armor: Armor) {
         return armor.armorType.equipmentPosition;
     }
 
-    @ResolveProperty(returns => Number)
+    @ResolveProperty(() => Number)
     async physicArmor(@Parent() armor: Armor) {
         return armor.armorType.physicArmor;
     }
 
-    @ResolveProperty(returns => Number)
+    @ResolveProperty(() => Number)
     async magicArmor(@Parent() armor: Armor) {
         return armor.armorType.magicArmor;
     }

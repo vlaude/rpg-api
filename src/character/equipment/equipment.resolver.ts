@@ -7,7 +7,7 @@ import { EquipEquipmentPieceInput } from './dto/equip-equipment-piece.input';
 import { ItemService } from 'src/item/item/item.service';
 import { Item } from 'src/item/item/models/item.entity';
 
-@Resolver(of => Equipment)
+@Resolver(() => Equipment)
 export class EquipmentResolver {
     constructor(
         private readonly equipmentService: EquipmentService,
@@ -15,7 +15,7 @@ export class EquipmentResolver {
         private readonly itemService: ItemService
     ) {}
 
-    @Mutation(returns => Equipment)
+    @Mutation(() => Equipment)
     async equipEquipmentPiece(
         @Args('equipEquipmentPieceData') equipEquipmentPieceData: EquipEquipmentPieceInput
     ): Promise<Equipment> {
@@ -23,7 +23,7 @@ export class EquipmentResolver {
         if (!character) {
             throw new UserInputError(`No character found for id ${equipEquipmentPieceData.characterId}`);
         }
-        let equipmentPiece = await this.itemService.findOneById(equipEquipmentPieceData.equipmentPieceId);
+        const equipmentPiece = await this.itemService.findOneById(equipEquipmentPieceData.equipmentPieceId);
         if (!equipmentPiece) {
             throw new UserInputError(`No item found for id ${equipEquipmentPieceData.equipmentPieceId}`);
         }
@@ -40,7 +40,7 @@ export class EquipmentResolver {
         return this.equipmentService.save(newEquipment);
     }
 
-    @ResolveProperty(returns => [Item])
+    @ResolveProperty(() => [Item])
     async equipmentPieces(@Parent() equipment: Equipment) {
         return this.itemService.findByEquipmentId(equipment.id);
     }

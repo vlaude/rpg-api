@@ -23,14 +23,14 @@ export class EquipmentService {
             throw new Error('Item is not in the character inventory');
         }
 
-        // Check if a piece is already equiped at this position
-        const alreadyEquiped = character.equipment.equipmentPieces.find(
+        // Check if a piece is already equipped at this position
+        const alreadyEquipped = character.equipment.equipmentPieces.find(
             p => p.equipmentPosition === piece.equipmentPosition
         );
 
         // If yes, throw an error
-        if (alreadyEquiped) {
-            throw new Error('A equipment piece is already equiped at this position');
+        if (alreadyEquipped) {
+            throw new Error('A equipment piece is already equipped at this position');
         }
 
         character.equipment.equipmentPieces.push(piece);

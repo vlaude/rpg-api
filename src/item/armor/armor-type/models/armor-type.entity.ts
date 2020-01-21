@@ -8,7 +8,7 @@ import { EquipmentPosition } from 'src/character/equipment/models/equipment-posi
 @ObjectType()
 export class ArmorType {
     @PrimaryGeneratedColumn()
-    @Field(type => ID)
+    @Field(() => ID)
     id: string;
 
     @Column({ unique: true })
@@ -17,11 +17,11 @@ export class ArmorType {
 
     // TODO Constraint on position
     @Column({ type: 'enum', enum: EquipmentPosition })
-    @Field(type => EquipmentPosition)
+    @Field(() => EquipmentPosition)
     equipmentPosition: EquipmentPosition;
 
     @Column({ type: 'enum', enum: ArmorCategory })
-    @Field(type => ArmorCategory)
+    @Field(() => ArmorCategory)
     category: ArmorCategory;
 
     @Column({ type: 'text', nullable: true })
@@ -29,47 +29,47 @@ export class ArmorType {
     description?: string;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     physicArmor: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     magicArmor: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     minBonusStrength: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     maxBonusStrength: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     minBonusDexterity: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     maxBonusDexterity: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     minBonusIntelligence: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     maxBonusIntelligence: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     minBonusVitality: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     maxBonusVitality: number;
 
     @OneToMany(
-        type => Armor,
+        () => Armor,
         armor => armor.armorType
     )
     instances?: Armor[];

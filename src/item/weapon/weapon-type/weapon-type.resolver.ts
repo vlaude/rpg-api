@@ -4,16 +4,16 @@ import { WeaponTypeService } from './weapon-type.service';
 import { CreateWeaponTypeInput } from './dto/create-weapon-type.input';
 import { WeaponType } from './models/weapon-type.entity';
 
-@Resolver(of => WeaponType)
+@Resolver(() => WeaponType)
 export class WeaponTypeResolver {
     constructor(private readonly weaponTypeService: WeaponTypeService) {}
 
-    @Query(returns => [WeaponType], { name: 'weaponTypes' })
+    @Query(() => [WeaponType], { name: 'weaponTypes' })
     async getWeaponTypes(): Promise<WeaponType[]> {
         return await this.weaponTypeService.findAll();
     }
 
-    @Mutation(returns => WeaponType)
+    @Mutation(() => WeaponType)
     async createWeaponType(
         @Args('createWeaponTypeData') createWeaponTypeData: CreateWeaponTypeInput
     ): Promise<WeaponType> {

@@ -1,11 +1,8 @@
-import { PrimaryGeneratedColumn, ManyToOne, In, Column, Entity, ChildEntity } from 'typeorm';
-import { Field, ID, Int, ObjectType } from 'type-graphql';
-import { Inventory } from 'src/character/inventory/models/inventory.entity';
+import { ManyToOne, Column, ChildEntity } from 'typeorm';
+import { Field, Int, ObjectType } from 'type-graphql';
 import { ArmorType } from '../../armor-type/models/armor-type.entity';
 import { ArmorCategory } from '../../armor-type/models/armor-category.entity';
-import { EquipmentPosition } from 'src/character/equipment/models/equipment-position.enum';
 import { Item } from 'src/item/item/models/item.entity';
-import { Equipment } from 'src/character/equipment/models/equipment.entity';
 
 @ChildEntity()
 @ObjectType({ implements: Item })
@@ -15,35 +12,35 @@ export class Armor extends Item {
     description?: string;
 
     @ManyToOne(
-        type => ArmorType,
+        () => ArmorType,
         armorType => armorType.instances,
         { eager: true }
     )
-    @Field(type => ArmorType)
+    @Field(() => ArmorType)
     armorType: ArmorType;
 
-    @Field(type => ArmorCategory)
+    @Field(() => ArmorCategory)
     category: ArmorCategory;
 
-    @Field(type => Int)
+    @Field(() => Int)
     physicArmor: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     magicArmor: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     bonusStrength: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     bonusDexterity: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     bonusIntelligence: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     bonusVitality: number;
 }
