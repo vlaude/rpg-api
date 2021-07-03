@@ -1,12 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column, ChildEntity } from 'typeorm';
-import { ObjectType, Field, ID, Int } from 'type-graphql';
-import { Inventory } from 'src/character/inventory/models/inventory.entity';
+import { ManyToOne, Column, ChildEntity } from 'typeorm';
+import { ObjectType, Field, Int } from 'type-graphql';
 import { WeaponType } from '../../weapon-type/models/weapon-type.entity';
 import { WeaponCategory } from '../../weapon-type/models/weapon-category.enum';
-import { EquipmentPosition } from 'src/character/equipment/models/equipment-position.enum';
 import { WeaponDamageType } from '../../weapon-type/models/weapon-damage-type.enum';
 import { Item } from 'src/item/item/models/item.entity';
-import { Equipment } from 'src/character/equipment/models/equipment.entity';
 
 @ChildEntity()
 @ObjectType({ implements: Item })
@@ -16,32 +13,32 @@ export class Weapon extends Item {
     description?: string;
 
     @ManyToOne(
-        type => WeaponType,
+        () => WeaponType,
         weaponType => weaponType.instances,
         { eager: true }
     )
-    @Field(type => WeaponType)
+    @Field(() => WeaponType)
     weaponType: WeaponType;
 
-    @Field(type => WeaponCategory)
+    @Field(() => WeaponCategory)
     category: WeaponCategory;
 
-    @Field(type => WeaponDamageType)
+    @Field(() => WeaponDamageType)
     damageType: WeaponDamageType;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     bonusStrength: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     bonusDexterity: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     bonusIntelligence: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     bonusVitality: number;
 }

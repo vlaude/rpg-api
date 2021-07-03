@@ -7,10 +7,6 @@ import { InventoryResolver } from './inventory/inventory.resolver';
 import { InventoryService } from './inventory/inventory.service';
 import { Inventory } from './inventory/models/inventory.entity';
 import { ItemModule } from 'src/item/item.module';
-import { WeaponModule } from 'src/item/weapon/weapon.module';
-import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
-import { ArmorModule } from 'src/item/armor/armor.module';
-import { Armor } from 'src/item/armor/armor/models/armor.entity';
 import { EquipmentResolver } from './equipment/equipment.resolver';
 import { EquipmentService } from './equipment/equipment.service';
 import { RaceResolver } from './race/race.resolver';
@@ -21,14 +17,10 @@ import { ItemService } from 'src/item/item/item.service';
 import { ClassResolver } from './class/class.resolver';
 import { ClassService } from './class/class.service';
 import { Class } from './class/models/class.entity';
+import { Equipment } from './equipment/models/equipment.entity';
 
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([Character, Inventory, Item, Weapon, Armor, Race, Class]),
-        WeaponModule,
-        ArmorModule,
-        ItemModule,
-    ],
+    imports: [TypeOrmModule.forFeature([Character, Equipment, Inventory, Item, Race, Class]), ItemModule],
     providers: [
         CharacterResolver,
         CharacterService,

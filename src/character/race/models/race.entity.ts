@@ -1,13 +1,12 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
 import { ObjectType, Field, ID, Int } from 'type-graphql';
-import { Character } from 'src/character/character/models/character.entity';
 import { Class } from 'src/character/class/models/class.entity';
 
 @Entity()
 @ObjectType()
 export class Race {
     @PrimaryGeneratedColumn()
-    @Field(type => ID)
+    @Field(() => ID)
     id: string;
 
     @Column({ unique: true })
@@ -19,23 +18,23 @@ export class Race {
     description: string;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     base_strength: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     base_dexterity: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     base_intelligence: number;
 
     @Column({ type: 'int' })
-    @Field(type => Int)
+    @Field(() => Int)
     base_vitality: number;
 
     @ManyToMany(
-        type => Class,
+        () => Class,
         c => c.compatibleRaces,
         { cascade: true }
     )

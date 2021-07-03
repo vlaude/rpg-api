@@ -8,11 +8,11 @@ import { WeaponCategory } from '../weapon-type/models/weapon-category.enum';
 import { WeaponDamageType } from '../weapon-type/models/weapon-damage-type.enum';
 import { EquipmentPosition } from 'src/character/equipment/models/equipment-position.enum';
 
-@Resolver(of => Weapon)
+@Resolver(() => Weapon)
 export class WeaponResolver {
     constructor(private readonly weaponService: WeaponService, private readonly weaponTypeService: WeaponTypeService) {}
 
-    @Query(returns => Weapon, { name: 'weapon' })
+    @Query(() => Weapon, { name: 'weapon' })
     async getWeaponById(@Args('id') id: string): Promise<Weapon> {
         const weapon = await this.weaponService.findOneById(id);
         if (!weapon) {
@@ -21,12 +21,12 @@ export class WeaponResolver {
         return weapon;
     }
 
-    @Query(returns => [Weapon], { name: 'weapons' })
+    @Query(() => [Weapon], { name: 'weapons' })
     async getWeapons(): Promise<Weapon[]> {
         return await this.weaponService.findAll();
     }
 
-    @Mutation(returns => Weapon)
+    @Mutation(() => Weapon)
     async createWeapon(@Args('createWeaponData') createWeaponData: CreateWeaponInput): Promise<Weapon> {
         const weaponType = await this.weaponTypeService.findOneById(createWeaponData.weaponTypeId);
         if (!weaponType) {
@@ -35,27 +35,27 @@ export class WeaponResolver {
         return this.weaponService.create(weaponType);
     }
 
-    @ResolveProperty(returns => String)
+    @ResolveProperty(() => String)
     async name(@Parent() weapon: Weapon) {
         return weapon.weaponType.name;
     }
 
-    @ResolveProperty(returns => String)
+    @ResolveProperty(() => String)
     async description(@Parent() weapon: Weapon) {
         return weapon.weaponType.description;
     }
 
-    @ResolveProperty(returns => WeaponCategory)
+    @ResolveProperty(() => WeaponCategory)
     async category(@Parent() weapon: Weapon) {
         return weapon.weaponType.category;
     }
 
-    @ResolveProperty(returns => WeaponDamageType)
+    @ResolveProperty(() => WeaponDamageType)
     async damageType(@Parent() weapon: Weapon) {
         return weapon.weaponType.damageType;
     }
 
-    @ResolveProperty(returns => EquipmentPosition)
+    @ResolveProperty(() => EquipmentPosition)
     async equipmentPosition(@Parent() weapon: Weapon) {
         return weapon.weaponType.equipmentPosition;
     }

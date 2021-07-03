@@ -4,16 +4,16 @@ import { ArmorTypeService } from './armor-type.service';
 import { CreateArmorTypeInput } from './dto/create-armor-type.input';
 import { UserInputError } from 'apollo-server-errors';
 
-@Resolver(of => ArmorType)
+@Resolver(() => ArmorType)
 export class ArmorTypeResolver {
     constructor(private readonly armorTypeService: ArmorTypeService) {}
 
-    @Query(returns => [ArmorType], { name: 'armorTypes' })
+    @Query(() => [ArmorType], { name: 'armorTypes' })
     async getArmorTypes(): Promise<ArmorType[]> {
         return await this.armorTypeService.findAll();
     }
 
-    @Mutation(returns => ArmorType)
+    @Mutation(() => ArmorType)
     async createArmorType(@Args('createArmorTypeData') createArmorTypeData: CreateArmorTypeInput): Promise<ArmorType> {
         const armorType = await this.armorTypeService.findOneByName(createArmorTypeData.name);
         if (armorType) {

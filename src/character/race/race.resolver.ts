@@ -4,16 +4,16 @@ import { Race } from './models/race.entity';
 import { CreateRaceInput } from './dto/create-race.input';
 import { RaceService } from './race.service';
 
-@Resolver(of => Race)
+@Resolver(() => Race)
 export class RaceResolver {
     constructor(private readonly raceService: RaceService) {}
 
-    @Query(returns => [Race], { name: 'races' })
+    @Query(() => [Race], { name: 'races' })
     async getRaces(): Promise<Race[]> {
         return this.raceService.findAll();
     }
 
-    @Mutation(returns => Race)
+    @Mutation(() => Race)
     async createRace(@Args('createRaceData') createRaceData: CreateRaceInput): Promise<Race> {
         const race = await this.raceService.findOneByName(createRaceData.name);
         if (race) {

@@ -1,10 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCharacterInput } from './dto/create-character.input';
 import { UpdateCharacterInput } from './dto/update-character-input';
 import { Character } from './models/character.entity';
-import { Weapon } from 'src/item/weapon/weapon/models/weapon.entity';
 
 @Injectable()
 export class CharacterService {

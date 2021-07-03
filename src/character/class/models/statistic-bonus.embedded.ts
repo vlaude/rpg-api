@@ -15,10 +15,10 @@ registerEnumType(Statistic, { name: 'Statistic' });
 @InputType('StatisticBonusInput')
 export class StatisticBonus {
     @Column({ type: 'enum', enum: Statistic, nullable: true })
-    @Field(type => Statistic, { nullable: true })
+    @Field(() => Statistic, { nullable: true })
     stat: Statistic;
 
     @Column({ type: 'float', nullable: true })
-    @Field(type => Float, { nullable: true })
+    @Field(() => Float, { nullable: true })
     percentageBonus: number;
 }

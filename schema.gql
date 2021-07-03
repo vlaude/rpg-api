@@ -203,10 +203,10 @@ type Mutation {
   createCharacter(createCharacterData: CreateCharacterInput!): Character!
   updateCharacter(updateCharacterData: UpdateCharacterInput!): Character!
   addItem(addItemData: AddItemInput!): Inventory!
-  createWeaponType(createWeaponTypeData: CreateWeaponTypeInput!): WeaponType!
-  createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
   createArmor(createArmorData: CreateArmorInput!): Armor!
   createArmorType(createArmorTypeData: CreateArmorTypeInput!): ArmorType!
+  createWeaponType(createWeaponTypeData: CreateWeaponTypeInput!): WeaponType!
+  createWeapon(createWeaponData: CreateWeaponInput!): Weapon!
   equipEquipmentPiece(equipEquipmentPieceData: EquipEquipmentPieceInput!): Equipment!
   createRace(createRaceData: CreateRaceInput!): Race!
   createClass(createClassData: CreateClassInput!): Class!
@@ -226,11 +226,11 @@ input PassiveInput {
 type Query {
   character(id: String!): Character!
   characters: [Character!]!
+  armors: [Armor!]!
+  armorTypes: [ArmorType!]!
   weaponTypes: [WeaponType!]!
   weapon(id: String!): Weapon!
   weapons: [Weapon!]!
-  armors: [Armor!]!
-  armorTypes: [ArmorType!]!
   races: [Race!]!
   classes: [Class!]!
   class(id: String!): Class!

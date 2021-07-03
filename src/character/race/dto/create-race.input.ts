@@ -8,15 +8,15 @@ export class CreateRaceInput {
     @Field({ nullable: true })
     description?: string;
 
-    @Field(type => Int)
+    @Field(() => Int)
     base_strength: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     base_dexterity: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     base_intelligence: number;
 
-    @Field(type => Int)
+    @Field(() => Int)
     base_vitality: number;
 }

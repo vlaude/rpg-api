@@ -9,7 +9,7 @@ import { EquipmentPosition } from 'src/character/equipment/models/equipment-posi
 @InterfaceType()
 export abstract class Item {
     @PrimaryGeneratedColumn()
-    @Field(type => ID)
+    @Field(() => ID)
     id: string;
 
     @Field()
@@ -20,13 +20,13 @@ export abstract class Item {
 
     // TODO Embedded equipable
     @Column({ type: 'boolean' })
-    @Field(type => Boolean)
+    @Field(() => Boolean)
     equipable: boolean;
 
     // TODO Add constraint to check if item is equipable
     // Only for equipable items
     @ManyToOne(
-        type => Equipment,
+        () => Equipment,
         equipment => equipment.equipmentPieces
     )
     equipment: Equipment;
@@ -34,11 +34,11 @@ export abstract class Item {
     // TODO Add constraint to check if item is equipable
     // Only for equipable items
     @Column({ type: 'enum', enum: EquipmentPosition, nullable: true })
-    @Field(type => EquipmentPosition, { nullable: true })
+    @Field(() => EquipmentPosition, { nullable: true })
     equipmentPosition: EquipmentPosition;
 
     @ManyToOne(
-        type => Inventory,
+        () => Inventory,
         inventory => inventory.items
     )
     inventory: Inventory;

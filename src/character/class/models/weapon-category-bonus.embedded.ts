@@ -6,10 +6,10 @@ import { Column } from 'typeorm';
 @InputType('WeaponCategoryBonusInput')
 export class WeaponCategoryBonus {
     @Column({ type: 'enum', enum: WeaponCategory, nullable: true })
-    @Field(type => WeaponCategory, { nullable: true })
+    @Field(() => WeaponCategory, { nullable: true })
     weaponCategory: WeaponCategory;
 
     @Column({ type: 'float', nullable: true })
-    @Field(type => Float, { nullable: true })
+    @Field(() => Float, { nullable: true })
     bonusDamage: number;
 }
